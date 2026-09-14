@@ -230,7 +230,9 @@ body {
 .advanced-secondary { width: 100%; color: var(--color-thistle-800); border-color: var(--color-thistle-200); background: var(--color-thistle-100); }
 .advanced-secondary:not(:disabled):hover { background: var(--color-thistle-200); }
 .advanced-empty { margin: 0; padding: 9px; border-radius: 5px; color: var(--color-thistle-600); background: var(--color-thistle-50); font-size: 11px; text-align: center; }
-.advanced-selection-list { display: grid; gap: 5px; margin: 0; padding: 0; list-style: none; }
+.advanced-selection-list { display: grid; gap: 5px; max-height: 148px; margin: 0; padding: 0 4px 0 0; overflow-y: auto; list-style: none; }
+.advanced-selection-list::-webkit-scrollbar { width: 5px; }
+.advanced-selection-list::-webkit-scrollbar-thumb { border-radius: 99px; background: var(--color-thistle-300); }
 .advanced-selection-list li { display: flex; align-items: center; justify-content: space-between; padding: 8px; border-radius: 5px; color: var(--color-thistle-800); background: var(--color-thistle-50); }
 .frame-ready { display: inline-flex; align-items: center; padding: 4px 7px; border: 1px solid #a2d2ff; border-radius: 999px; color: #023664; background: #bde0ff; font-size: 10px; font-weight: 800; }
 .advanced-app.is-dark .advanced-selection-list li { color: var(--color-thistle-50); }
