@@ -322,9 +322,13 @@ export default function App() {
       <section className="advanced-panel advanced-section preflight-section">
         <div className="advanced-section-heading">
           <span className="advanced-icon"><ScanSearch size={15} /></span>
-          <div><h2>Pre-export check</h2><p>Fonts, copy, and hidden layers.</p></div>
+          <div>
+            <h2>Pre-export check</h2>
+            <p>Fonts, copy, and hidden layers.</p>
+          </div>
           {scanResults && <span className="advanced-saved">Checked</span>}
         </div>
+        <p className="preflight-helper">Looks for missing fonts, placeholder text, and hidden layers before the file is exported.</p>
         <button className="advanced-secondary" onClick={handleScan} disabled={selectionNames.length === 0}>
           Scan selection
         </button>

@@ -214,6 +214,7 @@ body {
 .advanced-section-heading > div { min-width: 0; flex: 1; }
 .advanced-section-heading h2 { margin: 0; color: var(--color-thistle-900); font-size: 12px; font-weight: 800; }
 .advanced-section-heading p { margin: 3px 0 0; color: var(--color-thistle-600); font-size: 10px; line-height: 1.35; }
+.preflight-helper { margin: -2px 0 8px; color: var(--color-thistle-600); font-size: 10px; line-height: 1.45; }
 .advanced-icon { display: grid; flex: none; width: 27px; height: 27px; place-items: center; border-radius: 6px; color: var(--color-pastel-petal-600); background: var(--color-pastel-petal-50); }
 .advanced-form label { display: grid; gap: 4px; color: var(--color-thistle-700); font-size: 10px; font-weight: 700; }
 .advanced-form input { min-width: 0; height: 34px; padding: 6px 8px; border: 1px solid var(--color-thistle-300); border-radius: 5px; color: var(--color-thistle-900); background: var(--color-thistle-50); font-family: inherit; font-size: 12px; }
@@ -296,7 +297,7 @@ body.owdia-dark-mode { color: var(--color-thistle-100); background: var(--color-
 .advanced-app.is-dark .advanced-header > div > p:last-child { color: var(--color-thistle-300); }
 .advanced-app.is-dark .advanced-panel { border-color: var(--color-thistle-700); background: var(--color-thistle-900); }
 .advanced-app.is-dark .advanced-section-heading h2, .advanced-app.is-dark .advanced-form label, .advanced-app.is-dark .advanced-toggle strong { color: var(--color-thistle-50); }
-.advanced-app.is-dark .advanced-section-heading p, .advanced-app.is-dark .advanced-toggle small, .advanced-app.is-dark .advanced-character-count, .advanced-app.is-dark .advanced-empty { color: var(--color-thistle-300); }
+.advanced-app.is-dark .advanced-section-heading p, .advanced-app.is-dark .advanced-toggle small, .advanced-app.is-dark .advanced-character-count, .advanced-app.is-dark .advanced-empty, .advanced-app.is-dark .preflight-helper { color: var(--color-thistle-300); }
 .advanced-app.is-dark .advanced-form input { color: var(--color-thistle-50); border-color: var(--color-thistle-700); background: var(--color-thistle-800); }
 .advanced-app.is-dark .advanced-toggle, .advanced-app.is-dark .advanced-selection-list li { border-color: var(--color-thistle-700); color: var(--color-thistle-100); background: var(--color-thistle-800); }
 .advanced-app.is-dark .advanced-secondary { color: #fff; border-color: var(--color-thistle-600); background: #2a2137; }
