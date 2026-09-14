@@ -324,11 +324,11 @@ export default function App() {
           <span className="advanced-icon"><ScanSearch size={15} /></span>
           <div>
             <h2>Pre-export check</h2>
-            <p>Fonts, copy, and hidden layers.</p>
+            <p>Catch issues before export.</p>
           </div>
           {scanResults && <span className="advanced-saved">Checked</span>}
         </div>
-        <p className="preflight-helper">Looks for missing fonts, placeholder text, and hidden layers before the file is exported.</p>
+        <p className="preflight-helper">Checks for missing fonts, placeholder text, and hidden layers so nothing slips through before export.</p>
         <button className="advanced-secondary" onClick={handleScan} disabled={selectionNames.length === 0}>
           Scan selection
         </button>
