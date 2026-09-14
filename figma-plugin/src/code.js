@@ -23,7 +23,14 @@ function isLikelyPlaceholder(text) {
 function getDocMeta() {
   // Stored on the document node itself, so it travels with the file (not per-user clientStorage).
   const raw = figma.root.getPluginData(DOC_KEY);
-  return raw ? JSON.parse(raw) : { client: "", project: "", round: "" };
+  if (!raw) return { client: "", project: "", version: "" };
+
+  const saved = JSON.parse(raw);
+  return {
+    client: saved.client || "",
+    project: saved.project || "",
+    version: saved.version || saved.round || "",
+  };
 }
 
 function setDocMeta(meta) {
@@ -44,10 +51,10 @@ function sanitize(part) {
 }
 
 function buildFilename(meta, frameName) {
-  const { client, project, round } = meta;
-  return `${sanitize(client)}_${sanitize(project)}_Round${sanitize(round)}_${sanitize(
-    frameName
-  )}_${todayStamp()}.pdf`;
+  const { client, project, version } = meta;
+  return `${sanitize(client)}_${sanitize(project)}_${sanitize(frameName)}_${todayStamp()}_v${sanitize(
+    version
+  )}.pdf`;
 }
 
 function collectDescendants(node, out) {

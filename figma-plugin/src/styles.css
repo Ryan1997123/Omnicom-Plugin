@@ -1,3 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-thistle-50: #f3eef7;
+  --color-thistle-100: #e8ddee;
+  --color-thistle-200: #d1bade;
+  --color-thistle-300: #ba98cd;
+  --color-thistle-400: #a375bd;
+  --color-thistle-500: #8b53ac;
+  --color-thistle-600: #70428a;
+  --color-thistle-700: #543267;
+  --color-thistle-800: #382145;
+  --color-thistle-900: #1c1122;
+  --color-thistle-950: #140c18;
+  --color-pastel-petal-50: #ffe5ef;
+  --color-pastel-petal-100: #ffcce0;
+  --color-pastel-petal-200: #ff99c0;
+  --color-pastel-petal-300: #ff66a1;
+  --color-pastel-petal-400: #ff3381;
+  --color-pastel-petal-500: #ff0062;
+  --color-pastel-petal-600: #cc004e;
+  --color-pastel-petal-700: #99003b;
+  --color-pastel-petal-800: #660027;
+  --color-pastel-petal-900: #330014;
+  --color-pastel-petal-950: #24000e;
+  --color-baby-pink-50: #ffe5ef;
+  --color-baby-pink-100: #ffccdf;
+  --color-baby-pink-200: #ff99be;
+  --color-baby-pink-300: #ff669e;
+  --color-baby-pink-400: #ff337e;
+  --color-baby-pink-500: #ff005d;
+  --color-baby-pink-600: #cc004b;
+  --color-baby-pink-700: #990038;
+  --color-baby-pink-800: #660025;
+  --color-baby-pink-900: #330013;
+  --color-baby-pink-950: #24000d;
+  --color-icy-blue-50: #e6f3ff;
+  --color-icy-blue-100: #cde7fe;
+  --color-icy-blue-200: #9bcffd;
+  --color-icy-blue-300: #68b7fd;
+  --color-icy-blue-400: #36a0fc;
+  --color-icy-blue-500: #0488fb;
+  --color-icy-blue-600: #036dc9;
+  --color-icy-blue-700: #025197;
+  --color-icy-blue-800: #023664;
+  --color-icy-blue-900: #011b32;
+  --color-icy-blue-950: #011323;
+  --color-sky-blue-50: #e5f3ff;
+  --color-sky-blue-100: #cce6ff;
+  --color-sky-blue-200: #99ceff;
+  --color-sky-blue-300: #66b5ff;
+  --color-sky-blue-400: #339cff;
+  --color-sky-blue-500: #0084ff;
+  --color-sky-blue-600: #0069cc;
+  --color-sky-blue-700: #004f99;
+  --color-sky-blue-800: #003566;
+  --color-sky-blue-900: #001a33;
+  --color-sky-blue-950: #001224;
+}
+
 @font-face {
   font-family: "Satoshi";
   src: url("./fonts/Satoshi-Variable.woff2") format("woff2");

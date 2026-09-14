@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Export Assistant Preview</title>
+  <style>
+    @font-face {
+      font-family: "Satoshi";
+      src: url("src/fonts/Satoshi-Variable.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 300 900;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #f4f4f2;
+      color: #171717;
+      font-family: "Satoshi", sans-serif;
+      font-size: 13px;
+    }
+    .shell {
+      width: 360px;
+      min-height: 520px;
+      margin: 32px auto;
+      padding: 20px 18px;
+      background: #fff;
+      border: 1px solid #e2e2df;
+      box-shadow: 0 14px 35px rgb(0 0 0 / 8%);
+    }
+    h1 { margin: 0 0 4px; font-size: 20px; line-height: 1.1; letter-spacing: 0; }
+    .subtitle { margin: 0 0 20px; color: #73736f; }
+    .metadata { display: grid; grid-template-columns: 1fr 1fr 72px; gap: 8px; }
+    label { display: grid; gap: 5px; color: #666661; font-size: 11px; font-weight: 600; }
+    input {
+      width: 100%; height: 34px; padding: 0 9px; border: 1px solid #d6d6d1;
+      border-radius: 5px; color: #171717; background: #fff; font: inherit;
+    }
+    input:focus { outline: 2px solid #b7d8ff; border-color: #438fe5; }
+    button {
+      height: 36px; padding: 0 12px; border: 0; border-radius: 5px;
+      font: inherit; font-weight: 700; cursor: pointer;
+    }
+    .save { margin-top: 12px; color: #fff; background: #171717; }
+    .saved { margin-left: 8px; color: #37865c; font-size: 12px; }
+    .section { margin-top: 22px; padding-top: 16px; border-top: 1px solid #e8e8e4; }
+    .section-title { margin: 0 0 9px; font-size: 11px; color: #777771; text-transform: uppercase; letter-spacing: .06em; }
+    .frames { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+    .frame { display: flex; justify-content: space-between; padding: 8px 10px; background: #f6f6f3; border-radius: 5px; }
+    .check { color: #37865c; font-weight: 700; }
+    .warning { margin-top: 8px; padding: 9px 10px; color: #77551a; background: #fff7df; border: 1px solid #f1dfaa; border-radius: 5px; }
+    .warning strong { display: block; margin-bottom: 3px; }
+    .scan { color: #171717; background: #e8e8e4; }
+    .export { width: 100%; margin-top: 22px; color: #fff; background: #2d72c9; }
+    .filename { margin: 10px 0 0; color: #73736f; font-size: 11px; text-align: center; }
+    @media (max-width: 400px) { .shell { width: calc(100% - 24px); margin: 12px auto; } }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <h1>Export Assistant</h1>
+    <p class="subtitle">Prepare your design for Workfront.</p>
+
+    <section class="metadata">
+      <label>Client<input value="AcmeCo"></label>
+      <label>Project<input value="HomepageRedesign"></label>
+      <label>Version<input value="3"></label>
+    </section>
+    <button class="save" type="button" onclick="this.nextElementSibling.hidden = false">Save to file</button><span class="saved" hidden>Saved</span>
+
+    <section class="section">
+      <h2 class="section-title">Selected frames</h2>
+      <ul class="frames">
+        <li class="frame"><span>Homepage</span><span class="check">Ready</span></li>
+        <li class="frame"><span>Checkout</span><span class="check">Ready</span></li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Pre-export check</h2>
+      <button class="scan" type="button">Scan selection</button>
+      <div class="warning"><strong>2 warnings in Checkout</strong>Placeholder text: CTA copy<br>Hidden layer: WIP notes</div>
+    </section>
+
+    <button class="export" type="button">Export as PDF</button>
+    <p class="filename">AcmeCo_HomepageRedesign_Homepage_091426_v3.pdf</p>
+  </main>
+</body>
+</html>

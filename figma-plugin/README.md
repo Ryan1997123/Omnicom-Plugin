@@ -1,13 +1,13 @@
 # Export Assistant (Figma plugin)
 
-Standardizes the client/project/round metadata, runs a pre-export sanity check, and exports correctly-named PDFs for Workfront handoff.
+Standardizes the client/project/version metadata, runs a pre-export sanity check, and exports correctly-named PDFs for Workfront handoff.
 
 ## What it does
 
-1. **Client / Project / Round** — Fill these in once; they're saved on the file itself (`figma.root.setPluginData`), so every teammate who opens the file sees the same values. Bump the round number as you go.
+1. **Client / Project / Version** — Fill these in once; they're saved on the file itself (`figma.root.setPluginData`), so every teammate who opens the file sees the same values. Bump the version number as you go.
 2. **Selection-based** — Works on whatever frame(s) you have selected, no change to how you organize your file.
 3. **Pre-export scan** — Flags (non-blocking) missing fonts, leftover "lorem ipsum" text, and hidden layers within the selection.
-4. **Filename builder** — Produces `Client_Project_RoundN_FrameName_MMDDYY.pdf` from your saved metadata + today's date.
+4. **Filename builder** — Produces `Client_Project_FrameName_MMDDYY_vN.pdf` from your saved metadata + today's date.
 5. **Export** — Runs Figma's native PDF export per selected frame and downloads it, ready to drag into Workfront.
 
 ## Setup
@@ -18,6 +18,12 @@ npm install
 npm run build      # one-off build -> dist/code.js, dist/ui.html
 npm run watch       # rebuild on save while developing
 ```
+
+## Styling with Tailwind
+
+Tailwind is installed and runs through the existing webpack/PostCSS build. The Coolors palette is available as utility classes such as `bg-thistle-900`, `text-pastel-petal-500`, and `border-icy-blue-300`. Satoshi is available as `font-satoshi`.
+
+The same colors are also exposed as CSS variables in `src/styles.css`, for example `var(--color-thistle-900)`. Update `tailwind.config.js` when adding or renaming design tokens.
 
 ## Load it in Figma
 

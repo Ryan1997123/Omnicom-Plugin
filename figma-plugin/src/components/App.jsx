@@ -34,8 +34,8 @@ export default function App() {
   const isPreview = new URLSearchParams(window.location.search).has("preview");
   const [meta, setMeta] = useState(
     isPreview
-      ? { client: "AcmeCo", project: "HomepageRedesign", round: "3" }
-      : { client: "", project: "", round: "" }
+      ? { client: "AcmeCo", project: "HomepageRedesign", version: "3" }
+      : { client: "", project: "", version: "" }
   );
   const [selectionNames, setSelectionNames] = useState(
     isPreview ? ["Homepage", "Checkout"] : []
@@ -117,7 +117,7 @@ export default function App() {
     postToPlugin({ type: "export" });
   }, []);
 
-  const metaComplete = meta.client && meta.project && meta.round;
+  const metaComplete = meta.client && meta.project && meta.version;
 
   return (
     <div className="app">
@@ -141,10 +141,10 @@ export default function App() {
           />
         </label>
         <label>
-          Round
+          Version
           <input
-            value={meta.round}
-            onChange={(e) => setMeta({ ...meta, round: e.target.value })}
+            value={meta.version}
+            onChange={(e) => setMeta({ ...meta, version: e.target.value.replace(/^v/i, "") })}
             placeholder="3"
           />
         </label>
@@ -206,7 +206,7 @@ export default function App() {
         >
           {exporting ? "Exporting…" : "Export as PDF"}
         </button>
-        {!metaComplete && <p className="muted">Fill in client/project/round first.</p>}
+        {!metaComplete && <p className="muted">Fill in client/project/version first.</p>}
         {exportError && <p className="error">{exportError}</p>}
       </div>
     </div>
