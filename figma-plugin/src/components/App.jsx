@@ -277,7 +277,7 @@ export default function App() {
         </label>
         <div className="advanced-save-stack">
           <button className="advanced-secondary" type="submit">Save export details</button>
-          {saved && <span className="advanced-saved">Saved</span>}
+          {saved && <span className="advanced-saved-text">Saved</span>}
         </div>
       </form>
 
