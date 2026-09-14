@@ -324,7 +324,6 @@ export default function App() {
           <span className="advanced-icon"><ScanSearch size={15} /></span>
           <div>
             <h2>Pre-export check</h2>
-            <p>Catch issues before export.</p>
           </div>
           {scanResults && <span className="advanced-saved">Checked</span>}
         </div>
