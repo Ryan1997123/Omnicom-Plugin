@@ -60,6 +60,8 @@
     .export-meta strong { color: #fff; }
     .export { width: 100%; margin-top: 0; color: #fff; background: #ff0062; }
     .export:hover { background: #cc004e; }
+    .export-actions { display: grid; grid-template-columns: 74px minmax(0, 1fr); gap: 7px; }
+    .cancel { color: #e8ddee; border: 1px solid #543267; background: transparent; }
     .filename { margin: 10px 0 0; overflow-wrap: anywhere; color: #d1bade; font-size: 11px; line-height: 1.4; text-align: center; word-break: break-word; }
     @media (max-width: 400px) { .shell { width: calc(100% - 24px); margin: 12px auto; } }
   </style>
@@ -75,7 +77,8 @@
       <label>Project<input value="HomepageRedesign"></label>
       <label>Version<input value="3"></label>
     </section>
-    <button class="save" type="button" onclick="this.nextElementSibling.hidden = false">Save to file</button><span class="saved" hidden>Saved</span>
+    <button class="save" type="button" onclick="this.nextElementSibling.hidden = false">Save export details</button><span class="saved" hidden>Saved</span>
+    <p class="subtitle" style="margin-top: 8px; font-size: 11px;">Saved to this Figma file for future exports.</p>
 
     <section class="section">
       <h2 class="section-title">Selected frames</h2>
@@ -93,7 +96,7 @@
 
     <section class="export-area">
       <p class="export-meta"><span>PDF HANDOFF</span><strong>2 FILES READY</strong></p>
-      <button class="export" type="button">Export as PDF</button>
+      <div class="export-actions"><button class="cancel" type="button">Cancel</button><button class="export" type="button">Export as PDF</button></div>
       <p class="filename">AcmeCoHomepage_HomepageRedesign_Homepage_091426_v3.pdf</p>
     </section>
   </main>

@@ -126,6 +126,10 @@ export default function App() {
     postToPlugin({ type: "export" });
   }, []);
 
+  const handleCancel = useCallback(() => {
+    postToPlugin({ type: "close" });
+  }, []);
+
   const metaComplete = meta.fileName && meta.project && meta.version;
   const filenamePreview = metaComplete
     ? `${meta.fileName}_${meta.project}_Frame_MMDDYY_v${meta.version}.pdf`
@@ -147,7 +151,7 @@ export default function App() {
       <form onSubmit={handleSaveMeta} className="advanced-panel advanced-form">
         <div className="advanced-section-heading">
           <span className="advanced-icon"><FileText size={15} /></span>
-          <div><h2>Export details</h2><p>Saved to this Figma file.</p></div>
+          <div><h2>Export details</h2><p>Reuse these details on future exports from this file.</p></div>
           {saved && <span className="advanced-saved">Saved</span>}
         </div>
         <label>
@@ -168,7 +172,7 @@ export default function App() {
             <input value={meta.version} onChange={(e) => setMeta({ ...meta, version: e.target.value.replace(/^v/i, "") })} placeholder="3" />
           </label>
         </div>
-        <button className="advanced-secondary" type="submit">Save details</button>
+        <button className="advanced-secondary" type="submit">Save export details</button>
       </form>
 
       <section className="advanced-panel advanced-section">
@@ -227,13 +231,16 @@ export default function App() {
 
       <section className="advanced-export-panel">
         <div className="advanced-export-heading"><span><FileCheck2 size={14} /> PDF handoff</span><strong>{selectionNames.length} {selectionNames.length === 1 ? "file" : "files"} ready</strong></div>
-        <button
-          className="primary"
-          onClick={handleExport}
-          disabled={!metaComplete || selectionNames.length === 0 || exporting}
-        >
-          {exporting ? "Exporting…" : "Export as PDF"}
-        </button>
+        <div className="advanced-export-actions">
+          <button className="advanced-cancel" type="button" onClick={handleCancel}>Cancel</button>
+          <button
+            className="primary"
+            onClick={handleExport}
+            disabled={!metaComplete || selectionNames.length === 0 || exporting}
+          >
+            {exporting ? "Exporting…" : "Export as PDF"}
+          </button>
+        </div>
         <p className="advanced-filename">{filenamePreview}</p>
         {!metaComplete && <p className="muted">Fill in file name/project/version first.</p>}
         {exportError && <p className="error">{exportError}</p>}
