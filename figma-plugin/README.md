@@ -7,8 +7,8 @@ Standardizes the file name/version metadata, runs a pre-export sanity check, and
 1. **File name / Version** — Fill these in once; they're saved on the file itself (`figma.root.setPluginData`), so every teammate who opens the file sees the same values. Bump the version number as you go.
 2. **Selection-based** — Works on whatever frame(s) you have selected, no change to how you organize your file.
 3. **Pre-export scan** — Flags (non-blocking) missing fonts, leftover "lorem ipsum" text, and hidden layers within the selection.
-4. **Filename builder** — Produces `FileName_Master_MMDDYY_vN.pdf` from your saved metadata + today's date.
-5. **Master PDF export** — Runs Figma's native PDF export per selected frame, merges them into one ordered, multi-page PDF with `pdf-lib`, and downloads it as `FileName_Master_MMDDYY_vN.pdf` (or without the date when Include date is off).
+4. **Filename builder** — Produces `FileName_MMDDYY_vN.pdf` from your saved metadata + today's date.
+5. **Master PDF export** — Runs Figma's native PDF export per selected frame, merges them into one ordered, multi-page PDF with `pdf-lib`, and downloads it using your file name as `FileName_MMDDYY_vN.pdf` (or without the date when Include date is off).
 
 ## Setup
 

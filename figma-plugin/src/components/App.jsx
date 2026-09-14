@@ -136,7 +136,7 @@ export default function App() {
             .then((bytes) => {
               const currentMeta = metaRef.current;
               const datePart = currentMeta.includeDate ? `_${todayStamp()}` : "";
-              const name = `${sanitizeFilenamePart(currentMeta.fileName)}_Master${datePart}_v${sanitizeFilenamePart(currentMeta.version)}.pdf`;
+              const name = `${sanitizeFilenamePart(currentMeta.fileName)}${datePart}_v${sanitizeFilenamePart(currentMeta.version)}.pdf`;
               downloadFile(name, bytes);
             })
             .catch((error) => setExportError(`Master PDF failed: ${error.message}`))
@@ -182,8 +182,8 @@ export default function App() {
 
   const metaComplete = meta.fileName && meta.version;
   const filenamePreview = metaComplete
-    ? `${meta.fileName}_Master${meta.includeDate ? "_MMDDYY" : ""}_v${meta.version}.pdf`
-    : `FileName_Master${meta.includeDate ? "_MMDDYY" : ""}_v#.pdf`;
+    ? `${meta.fileName}${meta.includeDate ? "_MMDDYY" : ""}_v${meta.version}.pdf`
+    : `FileName${meta.includeDate ? "_MMDDYY" : ""}_v#.pdf`;
 
   return (
     <div className={darkMode ? "app advanced-app is-dark" : "app advanced-app"}>
