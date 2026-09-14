@@ -31,5 +31,8 @@ After `npm run watch`, just re-run the plugin in Figma to pick up changes (no re
 ## Notes / next steps
 
 - Filenames are sanitized (spaces/punctuation stripped) to avoid Workfront upload issues.
+- Placeholder detection uses the `PLACEHOLDER_FLAGS` list in `src/code.js` (currently: lorem ipsum, tbd, dummy text, insert copy/text, etc.) — add your team's own conventions there (e.g. "XX", "CLIENT NAME HERE").
+- Missing-font detection actually attempts `figma.loadFontAsync` on each text run (handles mixed-font text runs), rather than relying only on the static `hasMissingFont` flag.
 - The QA scan currently checks 3 common issues; add more checks in `src/code.js` (`scanNode`) as your team's checklist grows — e.g. flag frames with no auto-layout, artboard size mismatches, etc.
-- Metadata is stored per-file, not per-user, so it's shared with anyone who opens the file.
+- Metadata is stored per-file (`figma.root.setPluginData`), not per-user `clientStorage`, so it's shared with anyone who opens the file.
+- Multiple selected frames export as separate PDFs (each suffixed with its frame name), not combined into one multi-page PDF. Combining would require bundling a PDF library (e.g. `pdf-lib`) into the UI bundle.

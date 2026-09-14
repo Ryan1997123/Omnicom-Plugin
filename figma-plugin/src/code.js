@@ -3,6 +3,23 @@ figma.showUI(__html__, { width: 360, height: 520 });
 
 const DOC_KEY = "exportAssistantMeta";
 
+// Add your team's placeholder conventions here (checked case-insensitively).
+const PLACEHOLDER_FLAGS = [
+  "lorem ipsum",
+  "lorem",
+  "placeholder",
+  "tbd",
+  "dummy text",
+  "insert copy",
+  "insert text",
+];
+
+function isLikelyPlaceholder(text) {
+  if (!text) return false;
+  const lower = text.toLowerCase();
+  return PLACEHOLDER_FLAGS.some((flag) => lower.includes(flag));
+}
+
 function getDocMeta() {
   // Stored on the document node itself, so it travels with the file (not per-user clientStorage).
   const raw = figma.root.getPluginData(DOC_KEY);
@@ -40,7 +57,26 @@ function collectDescendants(node, out) {
   }
 }
 
-function scanNode(node) {
+// Attempts to load each text node's font(s) — catches fonts missing from the
+// local machine, which is more reliable than the static hasMissingFont flag
+// when a run has mixed fonts across its characters.
+async function hasMissingFont(node) {
+  try {
+    if (node.fontName !== figma.mixed) {
+      await figma.loadFontAsync(node.fontName);
+    } else {
+      const fonts = node.getRangeAllFontNames(0, node.characters.length);
+      for (const font of fonts) {
+        await figma.loadFontAsync(font);
+      }
+    }
+    return false;
+  } catch (e) {
+    return true;
+  }
+}
+
+async function scanNode(node) {
   const issues = { missingFonts: [], placeholderText: [], hiddenLayers: [] };
   const all = [];
   collectDescendants(node, all);
@@ -50,11 +86,8 @@ function scanNode(node) {
       issues.hiddenLayers.push(n.name);
     }
     if (n.type === "TEXT") {
-      if (n.hasMissingFont) issues.missingFonts.push(n.name);
-      const text = n.characters || "";
-      if (/lorem ipsum|placeholder text/i.test(text)) {
-        issues.placeholderText.push(n.name);
-      }
+      if (await hasMissingFont(n)) issues.missingFonts.push(n.name);
+      if (isLikelyPlaceholder(n.characters)) issues.placeholderText.push(n.name);
     }
   }
   return issues;
@@ -85,10 +118,10 @@ figma.ui.onmessage = async (msg) => {
         figma.ui.postMessage({ type: "scan-result", error: "Nothing selected." });
         break;
       }
-      const results = selection.map((node) => ({
-        name: node.name,
-        issues: scanNode(node),
-      }));
+      const results = [];
+      for (const node of selection) {
+        results.push({ name: node.name, issues: await scanNode(node) });
+      }
       figma.ui.postMessage({ type: "scan-result", results });
       break;
     }
