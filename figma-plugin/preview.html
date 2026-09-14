@@ -73,6 +73,7 @@
     .section-title-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 9px; }
     .preflight-section .section-title-row { margin-bottom: 9px; padding-bottom: 0; }
     .preflight-section > .section-title { margin-bottom: 9px; padding-bottom: 0; }
+    .selection-helper { margin: -2px 0 8px; color: #8b53ac; font-size: 10px; line-height: 1.45; }
     .preflight-helper { margin: -2px 0 8px; color: #8b53ac; font-size: 10px; line-height: 1.45; }
     .section-title { margin: 0; font-size: 11px; color: #70428a; text-transform: uppercase; letter-spacing: .06em; }
     .frame-count { min-width: 21px; padding: 4px 7px; border-radius: 99px; color: #543267; background: #e8ddee; font-size: 10px; font-weight: 800; text-align: center; }
@@ -96,6 +97,7 @@
     body.dark-mode .shell { border-color: #543267; background: #1c1122; box-shadow: 0 14px 35px rgb(0 0 0 / 35%); }
     body.dark-mode h1 { color: #fff; }
     body.dark-mode .subtitle, body.dark-mode label, body.dark-mode .section-title { color: #d1bade; }
+    body.dark-mode .selection-helper { color: #d1bade; }
     body.dark-mode .preflight-helper { color: #d1bade; }
     body.dark-mode input { color: #f3eef7; border-color: #543267; background: #382145; }
     body.dark-mode .date-toggle, body.dark-mode .frame { border-color: #543267; background: #382145; }
@@ -126,6 +128,7 @@
 
     <section class="section">
       <div class="section-title-row"><h2 class="section-title">Selected frames</h2><span class="frame-count">50</span></div>
+      <p class="selection-helper">Frames selected in Figma will be included in the master PDF.</p>
       <ul id="frames" class="frames">
         <li class="frame"><span>Homepage</span><span class="check">Ready</span></li>
         <li class="frame"><span>Checkout</span><span class="check">Ready</span></li>

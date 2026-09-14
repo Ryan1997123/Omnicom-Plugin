@@ -214,6 +214,7 @@ body {
 .advanced-section-heading > div { min-width: 0; flex: 1; }
 .advanced-section-heading h2 { margin: 0; color: var(--color-thistle-900); font-size: 12px; font-weight: 800; }
 .advanced-section-heading p { margin: 3px 0 0; color: var(--color-thistle-600); font-size: 10px; line-height: 1.35; }
+.selection-helper { margin: -2px 0 8px; color: var(--color-thistle-600); font-size: 10px; line-height: 1.45; }
 .preflight-helper { margin: -2px 0 8px; color: var(--color-thistle-600); font-size: 10px; line-height: 1.45; }
 .advanced-icon { display: grid; flex: none; width: 27px; height: 27px; place-items: center; border-radius: 6px; color: var(--color-pastel-petal-600); background: var(--color-pastel-petal-50); }
 .advanced-form label { display: grid; gap: 4px; color: var(--color-thistle-700); font-size: 10px; font-weight: 700; }

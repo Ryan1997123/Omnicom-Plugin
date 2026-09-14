@@ -308,6 +308,7 @@ export default function App() {
           <div><h2>Selected frames</h2><p>{selectionNames.length ? "Frames queued for export." : "Choose frames in Figma to begin."}</p></div>
           <span className="advanced-count">{selectionNames.length}</span>
         </div>
+        <p className="selection-helper">Frames selected in Figma will be included in the master PDF.</p>
         {selectionNames.length === 0 ? (
           <p className="advanced-empty">No frames selected</p>
         ) : (
