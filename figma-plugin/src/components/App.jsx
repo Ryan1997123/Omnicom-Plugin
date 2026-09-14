@@ -1,4 +1,13 @@
 import React, { useEffect, useState, useCallback } from "react";
+import {
+  CheckCircle2,
+  FileCheck2,
+  FileText,
+  Layers3,
+  ScanSearch,
+  Sparkles,
+  TriangleAlert,
+} from "lucide-react";
 
 function postToPlugin(message) {
   parent.postMessage({ pluginMessage: message }, "*");
@@ -118,12 +127,29 @@ export default function App() {
   }, []);
 
   const metaComplete = meta.fileName && meta.project && meta.version;
+  const filenamePreview = metaComplete
+    ? `${meta.fileName}_${meta.project}_Frame_MMDDYY_v${meta.version}.pdf`
+    : "FileName_Project_Frame_MMDDYY_v#.pdf";
 
   return (
-    <div className="app">
-      <h2>Export Assistant</h2>
+    <div className="app advanced-app">
+      <header className="advanced-header">
+        <div>
+          <p className="advanced-eyebrow"><Sparkles size={11} /> OWDIA / DELIVERY TOOL</p>
+          <h1>Export Assistant</h1>
+          <p>Review once. Ship with confidence.</p>
+        </div>
+        <span className={selectionNames.length ? "advanced-status is-ready" : "advanced-status"}>
+          {selectionNames.length ? "Ready" : "Waiting"}
+        </span>
+      </header>
 
-      <form onSubmit={handleSaveMeta} className="meta-form">
+      <form onSubmit={handleSaveMeta} className="advanced-panel advanced-form">
+        <div className="advanced-section-heading">
+          <span className="advanced-icon"><FileText size={15} /></span>
+          <div><h2>Export details</h2><p>Saved to this Figma file.</p></div>
+          {saved && <span className="advanced-saved">Saved</span>}
+        </div>
         <label>
           File name
           <input
@@ -132,42 +158,43 @@ export default function App() {
             placeholder="AcmeCoHomepage"
           />
         </label>
-        <label>
-          Project
-          <input
-            value={meta.project}
-            onChange={(e) => setMeta({ ...meta, project: e.target.value })}
-            placeholder="HomepageRedesign"
-          />
-        </label>
-        <label>
-          Version
-          <input
-            value={meta.version}
-            onChange={(e) => setMeta({ ...meta, version: e.target.value.replace(/^v/i, "") })}
-            placeholder="3"
-          />
-        </label>
-        <button type="submit">Save to file</button>
-        {saved && <span className="saved-badge">Saved ✓</span>}
+        <div className="advanced-field-row">
+          <label>
+            Project
+            <input value={meta.project} onChange={(e) => setMeta({ ...meta, project: e.target.value })} placeholder="HomepageRedesign" />
+          </label>
+          <label className="advanced-version-field">
+            Version
+            <input value={meta.version} onChange={(e) => setMeta({ ...meta, version: e.target.value.replace(/^v/i, "") })} placeholder="3" />
+          </label>
+        </div>
+        <button className="advanced-secondary" type="submit">Save details</button>
       </form>
 
-      <div className="section">
-        <h3>Selection</h3>
+      <section className="advanced-panel advanced-section">
+        <div className="advanced-section-heading">
+          <span className="advanced-icon"><Layers3 size={15} /></span>
+          <div><h2>Selected frames</h2><p>{selectionNames.length ? "Frames queued for export." : "Choose frames in Figma to begin."}</p></div>
+          <span className="advanced-count">{selectionNames.length}</span>
+        </div>
         {selectionNames.length === 0 ? (
-          <p className="muted">Select the frame(s) you want to export.</p>
+          <p className="advanced-empty">No frames selected</p>
         ) : (
-          <ul>
+          <ul className="advanced-selection-list">
             {selectionNames.map((name, i) => (
-              <li key={i}>{name}</li>
+              <li key={i}><span>{name}</span><span>Selected</span></li>
             ))}
           </ul>
         )}
-      </div>
+      </section>
 
-      <div className="section">
-        <h3>Pre-export check</h3>
-        <button onClick={handleScan} disabled={selectionNames.length === 0}>
+      <section className="advanced-panel advanced-section">
+        <div className="advanced-section-heading">
+          <span className="advanced-icon"><ScanSearch size={15} /></span>
+          <div><h2>Pre-export check</h2><p>Fonts, copy, and hidden layers.</p></div>
+          {scanResults && <span className="advanced-saved">Checked</span>}
+        </div>
+        <button className="advanced-secondary" onClick={handleScan} disabled={selectionNames.length === 0}>
           Scan selection
         </button>
         {scanError && <p className="error">{scanError}</p>}
@@ -180,10 +207,10 @@ export default function App() {
                 placeholderText.length === 0 &&
                 hiddenLayers.length === 0;
               return (
-                <div key={i} className="scan-frame">
-                  <strong>{r.name}</strong>
+                <div key={i} className={clean ? "advanced-scan-frame is-clean" : "advanced-scan-frame has-warning"}>
+                  <div className="advanced-scan-frame-heading"><strong>{r.name}</strong>{clean ? <CheckCircle2 size={15} /> : <TriangleAlert size={15} />}</div>
                   {clean ? (
-                    <p className="ok">No issues found ✓</p>
+                    <p className="ok">No issues found</p>
                   ) : (
                     <>
                       <IssueList title="Missing fonts" items={missingFonts} />
@@ -196,9 +223,10 @@ export default function App() {
             })}
           </div>
         )}
-      </div>
+      </section>
 
-      <div className="section">
+      <section className="advanced-export-panel">
+        <div className="advanced-export-heading"><span><FileCheck2 size={14} /> PDF handoff</span><strong>{selectionNames.length} {selectionNames.length === 1 ? "file" : "files"} ready</strong></div>
         <button
           className="primary"
           onClick={handleExport}
@@ -206,9 +234,10 @@ export default function App() {
         >
           {exporting ? "Exporting…" : "Export as PDF"}
         </button>
+        <p className="advanced-filename">{filenamePreview}</p>
         {!metaComplete && <p className="muted">Fill in file name/project/version first.</p>}
         {exportError && <p className="error">{exportError}</p>}
-      </div>
+      </section>
     </div>
   );
 }

@@ -30,7 +30,9 @@
       border: 1px solid #d1bade;
       box-shadow: 0 14px 35px rgb(56 33 69 / 18%);
     }
-    h1 { margin: 0 0 4px; color: #382145; font-size: 20px; line-height: 1.1; letter-spacing: 0; }
+    .eyebrow { display: flex; justify-content: space-between; margin: 0 0 6px; color: #cc004e; font-size: 10px; font-weight: 800; letter-spacing: .08em; }
+    .status { padding: 4px 7px; border-radius: 99px; color: #025197; background: #e6f3ff; font-size: 10px; letter-spacing: 0; }
+    h1 { margin: 0 0 4px; color: #382145; font-size: 22px; line-height: 1.1; letter-spacing: 0; }
     .subtitle { margin: 0 0 20px; color: #70428a; }
     .metadata { display: grid; grid-template-columns: 1fr 1fr 72px; gap: 8px; }
     label { display: grid; gap: 5px; color: #543267; font-size: 11px; font-weight: 600; }
@@ -53,13 +55,18 @@
     .warning { margin-top: 8px; padding: 9px 10px; color: #660027; background: #ffe5ef; border: 1px solid #ff99c0; border-radius: 5px; }
     .warning strong { display: block; margin-bottom: 3px; }
     .scan { color: #382145; background: #e8ddee; }
-    .export { width: 100%; margin-top: 22px; color: #fff; background: #0488fb; }
-    .filename { margin: 10px 0 0; color: #70428a; font-size: 11px; text-align: center; }
+    .export-area { margin-top: 22px; padding: 12px; border-radius: 7px; background: #1c1122; }
+    .export-meta { display: flex; justify-content: space-between; margin: 0 0 9px; color: #d1bade; font-size: 10px; font-weight: 600; }
+    .export-meta strong { color: #fff; }
+    .export { width: 100%; margin-top: 0; color: #fff; background: #ff0062; }
+    .export:hover { background: #cc004e; }
+    .filename { margin: 10px 0 0; overflow-wrap: anywhere; color: #d1bade; font-size: 11px; line-height: 1.4; text-align: center; word-break: break-word; }
     @media (max-width: 400px) { .shell { width: calc(100% - 24px); margin: 12px auto; } }
   </style>
 </head>
 <body>
   <main class="shell">
+    <p class="eyebrow">OWDIA / DELIVERY TOOL <span class="status">READY</span></p>
     <h1>Export Assistant</h1>
     <p class="subtitle">Prepare your design for Workfront.</p>
 
@@ -84,8 +91,11 @@
       <div class="warning"><strong>2 warnings in Checkout</strong>Placeholder text: CTA copy<br>Hidden layer: WIP notes</div>
     </section>
 
-    <button class="export" type="button">Export as PDF</button>
-    <p class="filename">AcmeCoHomepage_HomepageRedesign_Homepage_091426_v3.pdf</p>
+    <section class="export-area">
+      <p class="export-meta"><span>PDF HANDOFF</span><strong>2 FILES READY</strong></p>
+      <button class="export" type="button">Export as PDF</button>
+      <p class="filename">AcmeCoHomepage_HomepageRedesign_Homepage_091426_v3.pdf</p>
+    </section>
   </main>
 </body>
 </html>
