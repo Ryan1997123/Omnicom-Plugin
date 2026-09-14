@@ -1,0 +1,104 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+  font-size: 12px;
+  margin: 0;
+  padding: 12px;
+  color: #1a1a1a;
+}
+
+h2 {
+  font-size: 14px;
+  margin: 0 0 12px;
+}
+
+h3 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #666;
+  margin: 0 0 6px;
+}
+
+.section {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #e5e5e5;
+}
+
+.meta-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.meta-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 11px;
+  color: #555;
+}
+
+.meta-form input {
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+button {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #f5f5f5;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+button.primary {
+  background: #18a0fb;
+  color: white;
+  border-color: #18a0fb;
+  width: 100%;
+  padding: 8px;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.saved-badge {
+  color: #1bc47d;
+  font-size: 11px;
+  margin-left: 4px;
+}
+
+.muted {
+  color: #888;
+}
+
+.error {
+  color: #d32f2f;
+}
+
+.ok {
+  color: #1bc47d;
+}
+
+ul {
+  margin: 4px 0;
+  padding-left: 16px;
+}
+
+.scan-frame {
+  margin-bottom: 10px;
+}
+
+.issue-group {
+  margin: 4px 0;
+}
