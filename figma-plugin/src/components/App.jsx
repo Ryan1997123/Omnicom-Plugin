@@ -290,8 +290,8 @@ export default function App() {
                 placeholderText.length === 0 &&
                 hiddenLayers.length === 0;
               return (
-                <div key={i} className={clean ? "advanced-scan-frame is-clean" : "advanced-scan-frame has-warning"}>
-                  <div className="advanced-scan-frame-heading"><strong>{r.name}</strong>{clean ? <CheckCircle2 size={15} /> : <TriangleAlert size={15} />}</div>
+                <details key={i} className={clean ? "advanced-scan-frame is-clean" : "advanced-scan-frame has-warning"}>
+                  <summary className="advanced-scan-frame-heading"><strong>{r.name}</strong>{clean ? <CheckCircle2 size={15} aria-label="No issues found" /> : <TriangleAlert size={15} aria-label="Warnings found" />}</summary>
                   {clean ? (
                     <p className="ok">No issues found</p>
                   ) : (
@@ -301,7 +301,7 @@ export default function App() {
                       <IssueList title="Hidden layers" items={hiddenLayers} />
                     </>
                   )}
-                </div>
+                </details>
               );
             })}
           </div>

@@ -241,7 +241,10 @@ body {
 .advanced-scan-frame { padding: 9px; border: 1px solid; border-radius: 6px; }
 .advanced-scan-frame.is-clean { border-color: var(--color-icy-blue-100); background: var(--color-icy-blue-50); }
 .advanced-scan-frame.has-warning { border-color: var(--color-pastel-petal-200); background: var(--color-pastel-petal-50); }
-.advanced-scan-frame-heading { display: flex; align-items: center; justify-content: space-between; color: var(--color-thistle-800); }
+.advanced-scan-frame-heading { display: flex; align-items: center; justify-content: space-between; color: var(--color-thistle-800); cursor: pointer; list-style: none; }
+.advanced-scan-frame-heading::-webkit-details-marker { display: none; }
+.advanced-scan-frame-heading::after { content: "+"; color: var(--color-thistle-600); font-size: 16px; font-weight: 500; line-height: 1; }
+.advanced-scan-frame[open] .advanced-scan-frame-heading::after { content: "−"; }
 .advanced-scan-frame-heading svg { color: var(--color-pastel-petal-600); }
 .advanced-scan-frame.is-clean svg { color: var(--color-icy-blue-600); }
 .advanced-scan-frame .issue-group { margin: 7px 0 0; color: var(--color-pastel-petal-800); font-size: 11px; }
