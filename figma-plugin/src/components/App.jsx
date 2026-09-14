@@ -244,7 +244,7 @@ export default function App() {
         <div className="advanced-section-heading">
           <span className="advanced-icon"><FileText size={15} /></span>
           <div><h2>Export details</h2><p>Reuse these details on future exports from this file.</p></div>
-          {saved && <span className="advanced-saved">Saved</span>}
+          {saved && <span className="advanced-saved" role="status" aria-live="polite">Saved</span>}
         </div>
         <div className="advanced-field-row">
           <label>
@@ -285,7 +285,7 @@ export default function App() {
         <div className="advanced-section-heading">
           <span className="advanced-icon"><MessageSquare size={15} /></span>
           <div><h2>Review notes</h2><p>Paste comments from Workfront, one per line.</p></div>
-          {reviewNotes.length > 0 && <span className="advanced-saved">{reviewNotes.filter((note) => note.status === "open").length} open</span>}
+          {reviewNotes.length > 0 && <span className="advanced-saved" role="status" aria-live="polite">{reviewNotes.filter((note) => note.status === "open").length} open</span>}
         </div>
         <textarea className="review-notes-input" value={reviewDraft} onChange={(e) => setReviewDraft(e.target.value)} placeholder="Update hero copy&#10;Check mobile spacing" aria-label="Paste review notes" />
         <button className="advanced-secondary" type="button" onClick={handleAddNotes} disabled={!reviewDraft.trim()}>Add review notes</button>
@@ -326,13 +326,13 @@ export default function App() {
           <div>
             <h2>Pre-export check</h2>
           </div>
-          {scanResults && <span className="advanced-saved">Checked</span>}
+          {scanResults && <span className="advanced-saved" role="status" aria-live="polite">Checked</span>}
         </div>
         <p className="preflight-helper">Checks for missing fonts, placeholder text, and hidden layers so nothing slips through before export.</p>
         <button className="advanced-secondary" onClick={handleScan} disabled={selectionNames.length === 0}>
           Scan selection
         </button>
-        {scanError && <p className="error">{scanError}</p>}
+        {scanError && <p className="error" role="alert">{scanError}</p>}
         {scanResults && (
           <div className="scan-results">
             {scanResults.map((r, i) => {
@@ -367,6 +367,7 @@ export default function App() {
           <button
             className="primary"
             onClick={handleMasterExport}
+            aria-busy={exporting}
             disabled={!metaComplete || selectionNames.length === 0 || exporting}
           >
             {exporting ? "Merging…" : "Export master PDF"}
@@ -374,7 +375,7 @@ export default function App() {
         </div>
         <p className="advanced-filename">{filenamePreview}</p>
         {!metaComplete && <p className="muted">Fill in file name and version first.</p>}
-        {exportError && <p className="error">{exportError}</p>}
+        {exportError && <p className="error" role="alert">{exportError}</p>}
       </section>
     </div>
   );
