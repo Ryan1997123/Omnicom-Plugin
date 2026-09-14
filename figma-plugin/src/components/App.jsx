@@ -182,8 +182,8 @@ export default function App() {
 
   const metaComplete = meta.fileName && meta.version;
   const filenamePreview = metaComplete
-    ? `${meta.fileName}_Frame${meta.includeDate ? "_MMDDYY" : ""}_v${meta.version}.pdf`
-    : `FileName_Frame${meta.includeDate ? "_MMDDYY" : ""}_v#.pdf`;
+    ? `${meta.fileName}_Master${meta.includeDate ? "_MMDDYY" : ""}_v${meta.version}.pdf`
+    : `FileName_Master${meta.includeDate ? "_MMDDYY" : ""}_v#.pdf`;
 
   return (
     <div className={darkMode ? "app advanced-app is-dark" : "app advanced-app"}>

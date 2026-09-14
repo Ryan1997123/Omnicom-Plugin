@@ -107,7 +107,7 @@
       <label>File name<input id="file-name" value="AcmeCoHomepage" maxlength="40" oninput="document.getElementById('character-count').textContent = this.value.length + ' / 40'"><span id="character-count" class="character-count">14 / 40</span></label>
       <label>Version<input value="3"></label>
     </section>
-    <label class="date-toggle"><span><strong>Include date</strong><small>Add MMDDYY to each filename.</small></span><input id="include-date" type="checkbox" checked onchange="document.getElementById('filename').textContent = this.checked ? 'AcmeCoHomepage_Homepage_091426_v3.pdf' : 'AcmeCoHomepage_Homepage_v3.pdf'"><span class="toggle-track"></span></label>
+    <label class="date-toggle"><span><strong>Include date</strong><small>Add MMDDYY to each filename.</small></span><input id="include-date" type="checkbox" checked onchange="document.getElementById('filename').textContent = this.checked ? 'AcmeCoHomepage_Master_091426_v3.pdf' : 'AcmeCoHomepage_Master_v3.pdf'"><span class="toggle-track"></span></label>
     <button class="save" type="button" onclick="this.nextElementSibling.hidden = false">Save export details</button><span class="saved" hidden>Saved</span>
     <p class="subtitle" style="margin-top: 8px; font-size: 11px;">Saved to this Figma file for future exports.</p>
 
@@ -128,7 +128,7 @@
     <section class="export-area">
       <p class="export-meta"><span>PDF HANDOFF</span><strong>1 MASTER PDF READY</strong></p>
       <div class="export-actions"><button class="cancel" type="button">Cancel</button><button class="export" type="button">Export master PDF</button></div>
-      <p id="filename" class="filename">AcmeCoHomepage_Homepage_091426_v3.pdf</p>
+      <p id="filename" class="filename">AcmeCoHomepage_Master_091426_v3.pdf</p>
     </section>
   </main>
   <script>
