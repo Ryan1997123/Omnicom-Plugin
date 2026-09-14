@@ -60,13 +60,17 @@
     .save { margin-top: 12px; color: #fff; background: #382145; }
     .saved { margin-left: 8px; color: #70428a; font-size: 12px; }
     .section { margin-top: 22px; padding-top: 16px; border-top: 1px solid #e8ddee; }
-    .section-title { margin: 0 0 9px; font-size: 11px; color: #70428a; text-transform: uppercase; letter-spacing: .06em; }
-    .frames { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+    .section-title-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 9px; }
+    .section-title { margin: 0; font-size: 11px; color: #70428a; text-transform: uppercase; letter-spacing: .06em; }
+    .frame-count { min-width: 21px; padding: 4px 7px; border-radius: 99px; color: #543267; background: #e8ddee; font-size: 10px; font-weight: 800; text-align: center; }
+    .frames { display: grid; gap: 6px; max-height: 148px; margin: 0; padding: 0 4px 0 0; overflow-y: auto; list-style: none; }
+    .frames::-webkit-scrollbar { width: 5px; }
+    .frames::-webkit-scrollbar-thumb { border-radius: 99px; background: #ba98cd; }
     .frame { display: flex; justify-content: space-between; padding: 8px 10px; background: #f3eef7; border-radius: 5px; }
     .check { display: inline-flex; align-items: center; padding: 4px 7px; border: 1px solid #a2d2ff; border-radius: 99px; color: #023664; background: #bde0ff; font-weight: 800; }
     .warning { margin-top: 8px; padding: 9px 10px; color: #660027; background: #ffe5ef; border: 1px solid #ff99c0; border-radius: 5px; }
     .warning strong { display: block; margin-bottom: 3px; }
-    .scan { color: #382145; background: #e8ddee; }
+    .scan { margin-top: 3px; color: #382145; background: #e8ddee; }
     .export-area { margin-top: 22px; padding: 12px; border-radius: 7px; background: #1c1122; }
     .export-meta { display: flex; justify-content: space-between; margin: 0 0 9px; color: #d1bade; font-size: 10px; font-weight: 600; }
     .export-meta strong { color: #fff; }
@@ -104,8 +108,8 @@
     <p class="subtitle" style="margin-top: 8px; font-size: 11px;">Saved to this Figma file for future exports.</p>
 
     <section class="section">
-      <h2 class="section-title">Selected frames</h2>
-      <ul class="frames">
+      <div class="section-title-row"><h2 class="section-title">Selected frames</h2><span class="frame-count">50</span></div>
+      <ul id="frames" class="frames">
         <li class="frame"><span>Homepage</span><span class="check">Ready</span></li>
         <li class="frame"><span>Checkout</span><span class="check">Ready</span></li>
       </ul>
@@ -123,5 +127,14 @@
       <p id="filename" class="filename">AcmeCoHomepage_Homepage_091426_v3.pdf</p>
     </section>
   </main>
+  <script>
+    const frames = document.getElementById("frames");
+    for (let index = 3; index <= 50; index += 1) {
+      const item = document.createElement("li");
+      item.className = "frame";
+      item.innerHTML = `<span>Screen ${String(index).padStart(2, "0")}</span><span class="check">Ready</span>`;
+      frames.appendChild(item);
+    }
+  </script>
 </body>
 </html>

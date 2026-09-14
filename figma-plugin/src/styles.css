@@ -228,6 +228,7 @@ body {
 .advanced-toggle-input:checked + .advanced-toggle-track::after { transform: translateX(13px); }
 .advanced-toggle-input:focus-visible + .advanced-toggle-track { outline: 2px solid var(--color-icy-blue-400); outline-offset: 2px; }
 .advanced-secondary { width: 100%; color: var(--color-thistle-800); border-color: var(--color-thistle-200); background: var(--color-thistle-100); }
+.advanced-section .advanced-secondary { margin-top: 3px; }
 .advanced-secondary:not(:disabled):hover { background: var(--color-thistle-200); }
 .advanced-empty { margin: 0; padding: 9px; border-radius: 5px; color: var(--color-thistle-600); background: var(--color-thistle-50); font-size: 11px; text-align: center; }
 .advanced-selection-list { display: grid; gap: 5px; max-height: 148px; margin: 0; padding: 0 4px 0 0; overflow-y: auto; list-style: none; }
