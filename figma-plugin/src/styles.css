@@ -265,6 +265,29 @@ button.primary:not(:disabled):hover { border-color: var(--color-pastel-petal-600
 .advanced-export-panel .muted { margin: 8px 0 0; color: var(--color-thistle-200); }
 .advanced-export-panel .error { color: var(--color-pastel-petal-200); }
 
+.workfront-section { margin: 0; }
+.workfront-link-row { display: flex; align-items: center; gap: 6px; padding: 5px 7px; border: 1px solid var(--color-thistle-300); border-radius: 6px; color: var(--color-thistle-600); background: var(--color-thistle-50); }
+.workfront-link-row:focus-within { outline: 2px solid var(--color-icy-blue-200); border-color: var(--color-icy-blue-500); }
+.workfront-link-row input { min-width: 0; flex: 1; height: 26px; padding: 0; border: 0; outline: 0; color: var(--color-thistle-900); background: transparent; font-family: inherit; font-size: 11px; }
+.workfront-sync { display: grid; min-width: 27px; min-height: 27px; padding: 0; place-items: center; color: var(--color-thistle-800); border-color: var(--color-thistle-300); background: var(--color-thistle-100); }
+.workfront-sync:hover { color: var(--color-icy-blue-700); background: var(--color-icy-blue-50); }
+.is-spinning { animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.workfront-comments { display: grid; gap: 6px; margin-top: 9px; }
+.workfront-comment { display: grid; gap: 3px; padding: 8px; border-left: 3px solid var(--color-pastel-petal-500); border-radius: 4px; background: var(--color-pastel-petal-50); }
+.workfront-comment.is-resolved { border-left-color: var(--color-icy-blue-500); background: var(--color-icy-blue-50); }
+.workfront-comment strong { color: var(--color-thistle-900); font-size: 11px; }
+.workfront-comment small { color: var(--color-thistle-600); font-size: 10px; }
+.workfront-comment-status { color: var(--color-pastel-petal-700); font-size: 9px; font-weight: 800; text-transform: uppercase; }
+.workfront-comment.is-resolved .workfront-comment-status { color: var(--color-icy-blue-700); }
+.advanced-app.is-dark .workfront-link-row { border-color: var(--color-thistle-600); background: var(--color-thistle-800); }
+.advanced-app.is-dark .workfront-link-row input { color: var(--color-thistle-50); }
+.advanced-app.is-dark .workfront-sync { color: var(--color-thistle-50); border-color: var(--color-thistle-500); background: var(--color-thistle-700); }
+.advanced-app.is-dark .workfront-comment { border-left-color: var(--color-pastel-petal-400); background: var(--color-pastel-petal-900); }
+.advanced-app.is-dark .workfront-comment.is-resolved { border-left-color: var(--color-icy-blue-300); background: var(--color-icy-blue-900); }
+.advanced-app.is-dark .workfront-comment strong { color: var(--color-thistle-50); }
+.advanced-app.is-dark .workfront-comment small { color: var(--color-thistle-300); }
+
 body.owdia-dark-mode { color: var(--color-thistle-100); background: var(--color-thistle-950); }
 .advanced-app.is-dark .advanced-header h1 { color: #fff; }
 .advanced-app.is-dark .advanced-header > div > p:last-child { color: var(--color-thistle-300); }

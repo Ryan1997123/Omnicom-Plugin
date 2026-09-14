@@ -5,6 +5,7 @@ import {
   FileCheck2,
   FileText,
   Layers3,
+  MessageSquare,
   MoonStar,
   ScanSearch,
   Sparkles,
@@ -95,6 +96,16 @@ export default function App() {
   const [exportError, setExportError] = useState("");
   const [saved, setSaved] = useState(false);
   const [exporting, setExporting] = useState(false);
+  const [reviewNotes, setReviewNotes] = useState(
+    isPreview
+      ? [
+          { status: "open", text: "Update the homepage hero copy", author: "Account", frame: "Homepage" },
+          { status: "open", text: "Check mobile spacing in navigation", author: "UX", frame: "Homepage" },
+          { status: "resolved", text: "Footer treatment approved", author: "Edit", frame: "Checkout" },
+        ]
+      : []
+  );
+  const [reviewDraft, setReviewDraft] = useState("");
   const metaRef = useRef(meta);
   metaRef.current = meta;
   const [darkMode, setDarkMode] = useState(false);
@@ -180,6 +191,26 @@ export default function App() {
     postToPlugin({ type: "close" });
   }, []);
 
+  const handleAddNotes = useCallback(() => {
+    const notes = reviewDraft
+      .split("\n")
+      .map((text) => text.trim())
+      .filter(Boolean)
+      .map((text) => ({ status: "open", text, author: "Pasted review note", frame: "Unassigned" }));
+    if (notes.length > 0) {
+      setReviewNotes((current) => [...current, ...notes]);
+      setReviewDraft("");
+    }
+  }, [reviewDraft]);
+
+  const handleToggleNote = useCallback((index) => {
+    setReviewNotes((current) => current.map((note, noteIndex) => (
+      noteIndex === index
+        ? { ...note, status: note.status === "resolved" ? "open" : "resolved" }
+        : note
+    )));
+  }, []);
+
   const metaComplete = meta.fileName && meta.version;
   const filenamePreview = metaComplete
     ? `${meta.fileName}_Master${meta.includeDate ? "_MMDDYY" : ""}_v${meta.version}.pdf`
@@ -246,6 +277,27 @@ export default function App() {
         </label>
         <button className="advanced-secondary" type="submit">Save export details</button>
       </form>
+
+      <section className="advanced-panel advanced-section review-notes-section">
+        <div className="advanced-section-heading">
+          <span className="advanced-icon"><MessageSquare size={15} /></span>
+          <div><h2>Review notes</h2><p>Paste comments from Workfront, one per line.</p></div>
+          {reviewNotes.length > 0 && <span className="advanced-saved">{reviewNotes.filter((note) => note.status === "open").length} open</span>}
+        </div>
+        <textarea className="review-notes-input" value={reviewDraft} onChange={(e) => setReviewDraft(e.target.value)} placeholder="Update hero copy&#10;Check mobile spacing" aria-label="Paste review notes" />
+        <button className="advanced-secondary" type="button" onClick={handleAddNotes} disabled={!reviewDraft.trim()}>Add review notes</button>
+        {reviewNotes.length > 0 && (
+          <div className="review-notes-list">
+            {reviewNotes.map((note, index) => (
+              <button className={`review-note ${note.status === "resolved" ? "is-resolved" : ""}`} type="button" onClick={() => handleToggleNote(index)} key={index}>
+                <span className="review-note-status">{note.status === "resolved" ? "Resolved" : "Open"}</span>
+                <strong>{note.text}</strong>
+                <small>{note.author} · {note.frame}</small>
+              </button>
+            ))}
+          </div>
+        )}
+      </section>
 
       <section className="advanced-panel advanced-section">
         <div className="advanced-section-heading">
