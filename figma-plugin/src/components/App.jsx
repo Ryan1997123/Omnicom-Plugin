@@ -169,12 +169,6 @@ export default function App() {
     postToPlugin({ type: "scan" });
   }, []);
 
-  const handleExport = useCallback(() => {
-    setExportError("");
-    setExporting(true);
-    postToPlugin({ type: "export", purpose: "individual" });
-  }, []);
-
   const handleMasterExport = useCallback(() => {
     setExportError("");
     setExporting(true);
@@ -307,20 +301,17 @@ export default function App() {
       </section>
 
       <section className="advanced-export-panel">
-        <div className="advanced-export-heading"><span><FileCheck2 size={14} /> PDF handoff</span><strong>{selectionNames.length} {selectionNames.length === 1 ? "file" : "files"} ready</strong></div>
+        <div className="advanced-export-heading"><span><FileCheck2 size={14} /> PDF handoff</span><strong>1 master PDF ready</strong></div>
         <div className="advanced-export-actions">
           <button className="advanced-cancel" type="button" onClick={handleCancel}>Cancel</button>
           <button
             className="primary"
-            onClick={handleExport}
+            onClick={handleMasterExport}
             disabled={!metaComplete || selectionNames.length === 0 || exporting}
           >
-            {exporting ? "Exporting…" : "Export as PDF"}
+            {exporting ? "Merging…" : "Export master PDF"}
           </button>
         </div>
-        <button className="advanced-master" type="button" onClick={handleMasterExport} disabled={!metaComplete || selectionNames.length === 0 || exporting}>
-          Export master PDF
-        </button>
         <p className="advanced-filename">{filenamePreview}</p>
         {!metaComplete && <p className="muted">Fill in file name and version first.</p>}
         {exportError && <p className="error">{exportError}</p>}

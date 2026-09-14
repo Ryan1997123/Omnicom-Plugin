@@ -252,8 +252,6 @@ body {
 .advanced-export-actions { display: grid; grid-template-columns: 74px minmax(0, 1fr); gap: 7px; }
 .advanced-cancel { color: var(--color-thistle-100); border-color: var(--color-thistle-700); background: transparent; }
 .advanced-cancel:not(:disabled):hover { color: #fff; border-color: var(--color-thistle-400); background: var(--color-thistle-800); }
-.advanced-master { width: 100%; margin-top: 7px; color: var(--color-thistle-100); border-color: var(--color-thistle-700); background: transparent; }
-.advanced-master:not(:disabled):hover { color: #fff; border-color: var(--color-thistle-400); background: var(--color-thistle-800); }
 button.primary { min-height: 40px; border-color: var(--color-pastel-petal-500); background: var(--color-pastel-petal-500); }
 button.primary:not(:disabled):hover { border-color: var(--color-pastel-petal-600); background: var(--color-pastel-petal-600); }
 .advanced-filename { margin: 8px 0 0; overflow-wrap: anywhere; color: var(--color-thistle-200); font-family: monospace; font-size: 10px; line-height: 1.4; text-align: center; word-break: break-word; }

@@ -8,7 +8,7 @@ Standardizes the file name/version metadata, runs a pre-export sanity check, and
 2. **Selection-based** — Works on whatever frame(s) you have selected, no change to how you organize your file.
 3. **Pre-export scan** — Flags (non-blocking) missing fonts, leftover "lorem ipsum" text, and hidden layers within the selection.
 4. **Filename builder** — Produces `FileName_FrameName_MMDDYY_vN.pdf` from your saved metadata + today's date.
-5. **Export** — Runs Figma's native PDF export per selected frame and downloads it, ready to drag into Workfront.
+5. **Master PDF export** — Runs Figma's native PDF export per selected frame, merges them into one ordered, multi-page PDF with `pdf-lib`, and downloads it as `FileName_Master_MMDDYY_vN.pdf` (or without the date when Include date is off).
 
 ## Setup
 
@@ -41,4 +41,4 @@ After `npm run watch`, just re-run the plugin in Figma to pick up changes (no re
 - Missing-font detection actually attempts `figma.loadFontAsync` on each text run (handles mixed-font text runs), rather than relying only on the static `hasMissingFont` flag.
 - The QA scan currently checks 3 common issues; add more checks in `src/code.js` (`scanNode`) as your team's checklist grows — e.g. flag frames with no auto-layout, artboard size mismatches, etc.
 - Metadata is stored per-file (`figma.root.setPluginData`), not per-user `clientStorage`, so it's shared with anyone who opens the file.
-- Multiple selected frames export as separate PDFs (each suffixed with its frame name), not combined into one multi-page PDF. Combining would require bundling a PDF library (e.g. `pdf-lib`) into the UI bundle.
+- Multiple selected frames are combined into one ordered multi-page master PDF for Workfront handoff.
