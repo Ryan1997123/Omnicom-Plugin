@@ -73,6 +73,7 @@
     .section-title-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 9px; }
     .preflight-section .section-title-row { margin-bottom: 9px; padding-bottom: 0; }
     .preflight-section > .section-title { margin-bottom: 9px; padding-bottom: 0; }
+    .preflight-helper { margin: -2px 0 8px; color: #8b53ac; font-size: 10px; line-height: 1.45; }
     .section-title { margin: 0; font-size: 11px; color: #70428a; text-transform: uppercase; letter-spacing: .06em; }
     .frame-count { min-width: 21px; padding: 4px 7px; border-radius: 99px; color: #543267; background: #e8ddee; font-size: 10px; font-weight: 800; text-align: center; }
     .frames { display: grid; gap: 6px; max-height: 148px; margin: 0; padding: 0 4px 0 0; overflow-y: auto; list-style: none; }
@@ -95,6 +96,7 @@
     body.dark-mode .shell { border-color: #543267; background: #1c1122; box-shadow: 0 14px 35px rgb(0 0 0 / 35%); }
     body.dark-mode h1 { color: #fff; }
     body.dark-mode .subtitle, body.dark-mode label, body.dark-mode .section-title { color: #d1bade; }
+    body.dark-mode .preflight-helper { color: #d1bade; }
     body.dark-mode input { color: #f3eef7; border-color: #543267; background: #382145; }
     body.dark-mode .date-toggle, body.dark-mode .frame { border-color: #543267; background: #382145; }
     body.dark-mode .date-toggle strong { color: #f3eef7; }
@@ -132,6 +134,7 @@
 
     <section class="section preflight-section">
       <h2 class="section-title">Pre-export check</h2>
+      <p class="preflight-helper">Checks for missing fonts, placeholder text, and hidden layers so nothing slips through before export.</p>
       <button class="scan" type="button">Scan selection</button>
       <div class="warning"><strong>2 warnings in Checkout</strong>Placeholder text: CTA copy<br>Hidden layer: WIP notes</div>
     </section>
