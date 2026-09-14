@@ -34,8 +34,8 @@ export default function App() {
   const isPreview = new URLSearchParams(window.location.search).has("preview");
   const [meta, setMeta] = useState(
     isPreview
-      ? { client: "AcmeCo", project: "HomepageRedesign", version: "3" }
-      : { client: "", project: "", version: "" }
+      ? { fileName: "AcmeCoHomepage", project: "HomepageRedesign", version: "3" }
+      : { fileName: "", project: "", version: "" }
   );
   const [selectionNames, setSelectionNames] = useState(
     isPreview ? ["Homepage", "Checkout"] : []
@@ -117,7 +117,7 @@ export default function App() {
     postToPlugin({ type: "export" });
   }, []);
 
-  const metaComplete = meta.client && meta.project && meta.version;
+  const metaComplete = meta.fileName && meta.project && meta.version;
 
   return (
     <div className="app">
@@ -125,11 +125,11 @@ export default function App() {
 
       <form onSubmit={handleSaveMeta} className="meta-form">
         <label>
-          Client
+          File name
           <input
-            value={meta.client}
-            onChange={(e) => setMeta({ ...meta, client: e.target.value })}
-            placeholder="AcmeCo"
+            value={meta.fileName}
+            onChange={(e) => setMeta({ ...meta, fileName: e.target.value })}
+            placeholder="AcmeCoHomepage"
           />
         </label>
         <label>
@@ -206,7 +206,7 @@ export default function App() {
         >
           {exporting ? "Exporting…" : "Export as PDF"}
         </button>
-        {!metaComplete && <p className="muted">Fill in client/project/version first.</p>}
+        {!metaComplete && <p className="muted">Fill in file name/project/version first.</p>}
         {exportError && <p className="error">{exportError}</p>}
       </div>
     </div>

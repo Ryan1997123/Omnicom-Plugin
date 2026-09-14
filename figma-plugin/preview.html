@@ -16,8 +16,8 @@
     body {
       margin: 0;
       min-height: 100vh;
-      background: #f4f4f2;
-      color: #171717;
+      background: #f3eef7;
+      color: #1c1122;
       font-family: "Satoshi", sans-serif;
       font-size: 13px;
     }
@@ -27,34 +27,34 @@
       margin: 32px auto;
       padding: 20px 18px;
       background: #fff;
-      border: 1px solid #e2e2df;
-      box-shadow: 0 14px 35px rgb(0 0 0 / 8%);
+      border: 1px solid #d1bade;
+      box-shadow: 0 14px 35px rgb(56 33 69 / 18%);
     }
-    h1 { margin: 0 0 4px; font-size: 20px; line-height: 1.1; letter-spacing: 0; }
-    .subtitle { margin: 0 0 20px; color: #73736f; }
+    h1 { margin: 0 0 4px; color: #382145; font-size: 20px; line-height: 1.1; letter-spacing: 0; }
+    .subtitle { margin: 0 0 20px; color: #70428a; }
     .metadata { display: grid; grid-template-columns: 1fr 1fr 72px; gap: 8px; }
-    label { display: grid; gap: 5px; color: #666661; font-size: 11px; font-weight: 600; }
+    label { display: grid; gap: 5px; color: #543267; font-size: 11px; font-weight: 600; }
     input {
-      width: 100%; height: 34px; padding: 0 9px; border: 1px solid #d6d6d1;
-      border-radius: 5px; color: #171717; background: #fff; font: inherit;
+      width: 100%; height: 34px; padding: 0 9px; border: 1px solid #ba98cd;
+      border-radius: 5px; color: #1c1122; background: #fff; font: inherit;
     }
-    input:focus { outline: 2px solid #b7d8ff; border-color: #438fe5; }
+    input:focus { outline: 2px solid #9bcffd; border-color: #0488fb; }
     button {
       height: 36px; padding: 0 12px; border: 0; border-radius: 5px;
       font: inherit; font-weight: 700; cursor: pointer;
     }
-    .save { margin-top: 12px; color: #fff; background: #171717; }
-    .saved { margin-left: 8px; color: #37865c; font-size: 12px; }
-    .section { margin-top: 22px; padding-top: 16px; border-top: 1px solid #e8e8e4; }
-    .section-title { margin: 0 0 9px; font-size: 11px; color: #777771; text-transform: uppercase; letter-spacing: .06em; }
+    .save { margin-top: 12px; color: #fff; background: #382145; }
+    .saved { margin-left: 8px; color: #70428a; font-size: 12px; }
+    .section { margin-top: 22px; padding-top: 16px; border-top: 1px solid #e8ddee; }
+    .section-title { margin: 0 0 9px; font-size: 11px; color: #70428a; text-transform: uppercase; letter-spacing: .06em; }
     .frames { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
-    .frame { display: flex; justify-content: space-between; padding: 8px 10px; background: #f6f6f3; border-radius: 5px; }
-    .check { color: #37865c; font-weight: 700; }
-    .warning { margin-top: 8px; padding: 9px 10px; color: #77551a; background: #fff7df; border: 1px solid #f1dfaa; border-radius: 5px; }
+    .frame { display: flex; justify-content: space-between; padding: 8px 10px; background: #f3eef7; border-radius: 5px; }
+    .check { color: #036dc9; font-weight: 700; }
+    .warning { margin-top: 8px; padding: 9px 10px; color: #660027; background: #ffe5ef; border: 1px solid #ff99c0; border-radius: 5px; }
     .warning strong { display: block; margin-bottom: 3px; }
-    .scan { color: #171717; background: #e8e8e4; }
-    .export { width: 100%; margin-top: 22px; color: #fff; background: #2d72c9; }
-    .filename { margin: 10px 0 0; color: #73736f; font-size: 11px; text-align: center; }
+    .scan { color: #382145; background: #e8ddee; }
+    .export { width: 100%; margin-top: 22px; color: #fff; background: #0488fb; }
+    .filename { margin: 10px 0 0; color: #70428a; font-size: 11px; text-align: center; }
     @media (max-width: 400px) { .shell { width: calc(100% - 24px); margin: 12px auto; } }
   </style>
 </head>
@@ -64,7 +64,7 @@
     <p class="subtitle">Prepare your design for Workfront.</p>
 
     <section class="metadata">
-      <label>Client<input value="AcmeCo"></label>
+      <label>File name<input value="AcmeCoHomepage"></label>
       <label>Project<input value="HomepageRedesign"></label>
       <label>Version<input value="3"></label>
     </section>
@@ -85,7 +85,7 @@
     </section>
 
     <button class="export" type="button">Export as PDF</button>
-    <p class="filename">AcmeCo_HomepageRedesign_Homepage_091426_v3.pdf</p>
+    <p class="filename">AcmeCoHomepage_HomepageRedesign_Homepage_091426_v3.pdf</p>
   </main>
 </body>
 </html>

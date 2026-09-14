@@ -1,13 +1,13 @@
 # Export Assistant (Figma plugin)
 
-Standardizes the client/project/version metadata, runs a pre-export sanity check, and exports correctly-named PDFs for Workfront handoff.
+Standardizes the file name/project/version metadata, runs a pre-export sanity check, and exports correctly-named PDFs for Workfront handoff.
 
 ## What it does
 
-1. **Client / Project / Version** — Fill these in once; they're saved on the file itself (`figma.root.setPluginData`), so every teammate who opens the file sees the same values. Bump the version number as you go.
+1. **File name / Project / Version** — Fill these in once; they're saved on the file itself (`figma.root.setPluginData`), so every teammate who opens the file sees the same values. Bump the version number as you go.
 2. **Selection-based** — Works on whatever frame(s) you have selected, no change to how you organize your file.
 3. **Pre-export scan** — Flags (non-blocking) missing fonts, leftover "lorem ipsum" text, and hidden layers within the selection.
-4. **Filename builder** — Produces `Client_Project_FrameName_MMDDYY_vN.pdf` from your saved metadata + today's date.
+4. **Filename builder** — Produces `FileName_Project_FrameName_MMDDYY_vN.pdf` from your saved metadata + today's date.
 5. **Export** — Runs Figma's native PDF export per selected frame and downloads it, ready to drag into Workfront.
 
 ## Setup

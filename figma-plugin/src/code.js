@@ -23,11 +23,11 @@ function isLikelyPlaceholder(text) {
 function getDocMeta() {
   // Stored on the document node itself, so it travels with the file (not per-user clientStorage).
   const raw = figma.root.getPluginData(DOC_KEY);
-  if (!raw) return { client: "", project: "", version: "" };
+  if (!raw) return { fileName: "", project: "", version: "" };
 
   const saved = JSON.parse(raw);
   return {
-    client: saved.client || "",
+    fileName: saved.fileName || saved.client || "",
     project: saved.project || "",
     version: saved.version || saved.round || "",
   };
@@ -51,8 +51,8 @@ function sanitize(part) {
 }
 
 function buildFilename(meta, frameName) {
-  const { client, project, version } = meta;
-  return `${sanitize(client)}_${sanitize(project)}_${sanitize(frameName)}_${todayStamp()}_v${sanitize(
+  const { fileName, project, version } = meta;
+  return `${sanitize(fileName)}_${sanitize(project)}_${sanitize(frameName)}_${todayStamp()}_v${sanitize(
     version
   )}.pdf`;
 }
