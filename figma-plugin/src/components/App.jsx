@@ -224,7 +224,7 @@ export default function App() {
         ) : (
           <ul className="advanced-selection-list">
             {selectionNames.map((name, i) => (
-              <li key={i}><span>{name}</span><span>Selected</span></li>
+              <li key={i}><span>{name}</span><span className="frame-ready">Ready</span></li>
             ))}
           </ul>
         )}
