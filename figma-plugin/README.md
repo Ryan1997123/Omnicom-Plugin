@@ -32,6 +32,8 @@ The same colors are also exposed as CSS variables in `src/styles.css`, for examp
 3. Select `figma-plugin/manifest.json`.
 4. Run it from **Plugins → Development → Export Assistant**.
 
+The plugin opens at 420 x 800 and can still scroll when a scan produces a long result list.
+
 After `npm run watch`, just re-run the plugin in Figma to pick up changes (no reload needed for UI-only changes; re-import isn't required unless `manifest.json` changes).
 
 ## Notes / next steps

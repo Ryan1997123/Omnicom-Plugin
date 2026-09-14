@@ -1,5 +1,5 @@
 // Runs in Figma's sandboxed main thread — no DOM access here.
-figma.showUI(__html__, { width: 420, height: 720 });
+figma.showUI(__html__, { width: 420, height: 800 });
 
 const DOC_KEY = "exportAssistantMeta";
 
