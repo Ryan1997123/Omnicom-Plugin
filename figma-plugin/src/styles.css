@@ -212,7 +212,8 @@ body {
 .advanced-form label { display: grid; gap: 4px; color: var(--color-thistle-700); font-size: 10px; font-weight: 700; }
 .advanced-form input { min-width: 0; height: 34px; padding: 6px 8px; border: 1px solid var(--color-thistle-300); border-radius: 5px; color: var(--color-thistle-900); background: var(--color-thistle-50); font-family: inherit; font-size: 12px; }
 .advanced-form input:focus { outline: 2px solid var(--color-icy-blue-200); border-color: var(--color-icy-blue-500); }
-.advanced-field-row { display: grid; grid-template-columns: minmax(0, 1fr) 72px; gap: 8px; }
+.advanced-character-count { margin-top: -1px; color: var(--color-thistle-500); font-size: 10px; font-weight: 500; text-align: right; }
+.advanced-field-row { display: grid; grid-template-columns: minmax(0, 1fr) 72px; align-items: start; gap: 8px; }
 .advanced-toggle { position: relative; display: flex !important; align-items: center; justify-content: space-between; min-height: 43px; padding: 8px 10px; border: 1px solid var(--color-thistle-200); border-radius: 6px; cursor: pointer; }
 .advanced-toggle > span:first-child { display: grid; gap: 2px; }
 .advanced-toggle strong { color: var(--color-thistle-800); font-size: 11px; }

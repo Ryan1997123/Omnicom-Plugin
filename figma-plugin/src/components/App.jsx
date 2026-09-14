@@ -9,6 +9,8 @@ import {
   TriangleAlert,
 } from "lucide-react";
 
+const FILE_NAME_LIMIT = 40;
+
 function postToPlugin(message) {
   parent.postMessage({ pluginMessage: message }, "*");
 }
@@ -160,18 +162,22 @@ export default function App() {
           <div><h2>Export details</h2><p>Reuse these details on future exports from this file.</p></div>
           {saved && <span className="advanced-saved">Saved</span>}
         </div>
-        <label>
-          File name
-          <input
-            value={meta.fileName}
-            onChange={(e) => setMeta({ ...meta, fileName: e.target.value })}
-            placeholder="AcmeCoHomepage"
-          />
-        </label>
-        <label className="advanced-version-field">
-          Version
-          <input value={meta.version} onChange={(e) => setMeta({ ...meta, version: e.target.value.replace(/^v/i, "") })} placeholder="3" />
-        </label>
+        <div className="advanced-field-row">
+          <label>
+            File name
+            <input
+              value={meta.fileName}
+              onChange={(e) => setMeta({ ...meta, fileName: e.target.value })}
+              placeholder="AcmeCoHomepage"
+              maxLength={FILE_NAME_LIMIT}
+            />
+            <span className="advanced-character-count">{meta.fileName.length} / {FILE_NAME_LIMIT}</span>
+          </label>
+          <label className="advanced-version-field">
+            Version
+            <input value={meta.version} onChange={(e) => setMeta({ ...meta, version: e.target.value.replace(/^v/i, "") })} placeholder="3" />
+          </label>
+        </div>
         <label className="advanced-toggle">
           <span>
             <strong>Include date</strong>

@@ -34,13 +34,14 @@
     .status { padding: 4px 7px; border-radius: 99px; color: #1b7a52; background: #e9f7ef; font-size: 10px; letter-spacing: 0; }
     h1 { margin: 0 0 4px; color: #382145; font-size: 22px; line-height: 1.1; letter-spacing: 0; }
     .subtitle { margin: 0 0 20px; color: #70428a; }
-    .metadata { display: grid; grid-template-columns: minmax(0, 1fr) 72px; gap: 8px; }
+    .metadata { display: grid; grid-template-columns: minmax(0, 1fr) 72px; align-items: start; gap: 8px; }
     label { display: grid; gap: 5px; color: #543267; font-size: 11px; font-weight: 600; }
     input {
       width: 100%; height: 34px; padding: 0 9px; border: 1px solid #ba98cd;
       border-radius: 5px; color: #1c1122; background: #fff; font: inherit;
     }
     input:focus { outline: 2px solid #9bcffd; border-color: #0488fb; }
+    .character-count { margin-top: -2px; color: #8b53ac; font-size: 10px; text-align: right; }
     .date-toggle { display: flex; align-items: center; justify-content: space-between; margin-top: 9px; padding: 8px 10px; border: 1px solid #d1bade; border-radius: 6px; cursor: pointer; }
     .date-toggle strong, .date-toggle small { display: block; }
     .date-toggle strong { color: #382145; font-size: 11px; }
@@ -82,7 +83,7 @@
     <p class="subtitle">Prepare your design for Workfront.</p>
 
     <section class="metadata">
-      <label>File name<input value="AcmeCoHomepage"></label>
+      <label>File name<input id="file-name" value="AcmeCoHomepage" maxlength="40" oninput="document.getElementById('character-count').textContent = this.value.length + ' / 40'"><span id="character-count" class="character-count">14 / 40</span></label>
       <label>Version<input value="3"></label>
     </section>
     <label class="date-toggle"><span><strong>Include date</strong><small>Add MMDDYY to each filename.</small></span><input id="include-date" type="checkbox" checked onchange="document.getElementById('filename').textContent = this.checked ? 'AcmeCoHomepage_Homepage_091426_v3.pdf' : 'AcmeCoHomepage_Homepage_v3.pdf'"><span class="toggle-track"></span></label>
