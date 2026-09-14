@@ -30,8 +30,10 @@
       border: 1px solid #d1bade;
       box-shadow: 0 14px 35px rgb(56 33 69 / 18%);
     }
-    .eyebrow { display: flex; justify-content: space-between; margin: 0 0 6px; color: #cc004e; font-size: 10px; font-weight: 800; letter-spacing: .08em; }
+    .eyebrow { display: flex; justify-content: space-between; align-items: center; margin: 0 0 6px; color: #cc004e; font-size: 10px; font-weight: 800; letter-spacing: .08em; }
     .status { padding: 4px 7px; border-radius: 99px; color: #1b7a52; background: #e9f7ef; font-size: 10px; letter-spacing: 0; }
+    .header-actions { display: flex; align-items: center; gap: 5px; }
+    .theme-toggle { width: 34px; height: 34px; padding: 0; color: #382145; border: 1px solid #ba98cd; background: #e8ddee; font-size: 19px; line-height: 1; }
     h1 { margin: 0 0 4px; color: #382145; font-size: 22px; line-height: 1.1; letter-spacing: 0; }
     .subtitle { margin: 0 0 20px; color: #70428a; }
     .metadata { display: grid; grid-template-columns: minmax(0, 1fr) 72px; align-items: start; gap: 8px; }
@@ -73,12 +75,22 @@
     .export-actions { display: grid; grid-template-columns: 74px minmax(0, 1fr); gap: 7px; }
     .cancel { color: #e8ddee; border: 1px solid #543267; background: transparent; }
     .filename { margin: 10px 0 0; overflow-wrap: anywhere; color: #d1bade; font-size: 11px; line-height: 1.4; text-align: center; word-break: break-word; }
+    body.dark-mode { background: #140c18; color: #f3eef7; }
+    body.dark-mode .shell { border-color: #543267; background: #1c1122; box-shadow: 0 14px 35px rgb(0 0 0 / 35%); }
+    body.dark-mode h1 { color: #fff; }
+    body.dark-mode .subtitle, body.dark-mode label, body.dark-mode .section-title { color: #d1bade; }
+    body.dark-mode input { color: #f3eef7; border-color: #543267; background: #382145; }
+    body.dark-mode .date-toggle, body.dark-mode .frame { border-color: #543267; background: #382145; }
+    body.dark-mode .date-toggle strong { color: #f3eef7; }
+    body.dark-mode .date-toggle small { color: #ba98cd; }
+    body.dark-mode .scan { color: #f3eef7; background: #382145; }
+    body.dark-mode .theme-toggle { color: #f3eef7; border-color: #543267; background: #382145; }
     @media (max-width: 400px) { .shell { width: calc(100% - 24px); margin: 12px auto; } }
   </style>
 </head>
 <body>
   <main class="shell">
-    <p class="eyebrow">OWDIA / DELIVERY TOOL <span class="status">&#10003; READY</span></p>
+    <p class="eyebrow">OWDIA / DELIVERY TOOL <span class="header-actions"><span class="status">&#10003; READY</span><button class="theme-toggle" type="button" onclick="document.body.classList.toggle('dark-mode')" title="Toggle dark mode" aria-label="Toggle dark mode">&#9790;</button></span></p>
     <h1>Export Assistant</h1>
     <p class="subtitle">Prepare your design for Workfront.</p>
 

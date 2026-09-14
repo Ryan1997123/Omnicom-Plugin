@@ -4,8 +4,10 @@ import {
   FileCheck2,
   FileText,
   Layers3,
+  MoonStar,
   ScanSearch,
   Sparkles,
+  Sun,
   TriangleAlert,
 } from "lucide-react";
 
@@ -73,6 +75,12 @@ export default function App() {
   const [exportError, setExportError] = useState("");
   const [saved, setSaved] = useState(false);
   const [exporting, setExporting] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    document.body.classList.toggle("owdia-dark-mode", darkMode);
+    return () => document.body.classList.remove("owdia-dark-mode");
+  }, [darkMode]);
 
   useEffect(() => {
     if (isPreview) return undefined;
@@ -144,16 +152,27 @@ export default function App() {
     : `FileName_Frame${meta.includeDate ? "_MMDDYY" : ""}_v#.pdf`;
 
   return (
-    <div className="app advanced-app">
+    <div className={darkMode ? "app advanced-app is-dark" : "app advanced-app"}>
       <header className="advanced-header">
         <div>
           <p className="advanced-eyebrow"><Sparkles size={11} /> OWDIA / DELIVERY TOOL</p>
           <h1>Export Assistant</h1>
           <p>Review once. Ship with confidence.</p>
         </div>
-        <span className={selectionNames.length ? "advanced-status is-ready" : "advanced-status"}>
-          {selectionNames.length ? <><CheckCircle2 size={12} /> Ready</> : "Waiting"}
-        </span>
+        <div className="advanced-header-actions">
+          <span className={selectionNames.length ? "advanced-status is-ready" : "advanced-status"}>
+            {selectionNames.length ? <><CheckCircle2 size={12} /> Ready</> : "Waiting"}
+          </span>
+          <button
+            className="advanced-theme-toggle"
+            type="button"
+            onClick={() => setDarkMode(!darkMode)}
+            title={darkMode ? "Use light mode" : "Use dark mode"}
+            aria-label={darkMode ? "Use light mode" : "Use dark mode"}
+          >
+            {darkMode ? <Sun size={16} strokeWidth={2.5} /> : <MoonStar size={16} strokeWidth={2.5} />}
+          </button>
+        </div>
       </header>
 
       <form onSubmit={handleSaveMeta} className="advanced-panel advanced-form">
