@@ -63,7 +63,7 @@
     .saved { margin-left: 8px; color: #70428a; font-size: 12px; }
     .section { margin-top: 22px; padding-top: 16px; border-top: 1px solid #e8ddee; }
     .section-title-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 9px; }
-    .preflight-section .section-title-row { margin-bottom: 48px; }
+    .preflight-section .section-title-row { margin-bottom: 64px; }
     .section-title { margin: 0; font-size: 11px; color: #70428a; text-transform: uppercase; letter-spacing: .06em; }
     .frame-count { min-width: 21px; padding: 4px 7px; border-radius: 99px; color: #543267; background: #e8ddee; font-size: 10px; font-weight: 800; text-align: center; }
     .frames { display: grid; gap: 6px; max-height: 148px; margin: 0; padding: 0 4px 0 0; overflow-y: auto; list-style: none; }
@@ -110,7 +110,7 @@
     <button class="save" type="button" onclick="this.nextElementSibling.hidden = false">Save export details</button><span class="saved" hidden>Saved</span>
     <p class="subtitle" style="margin-top: 8px; font-size: 11px;">Saved to this Figma file for future exports.</p>
 
-    <section class="section preflight-section">
+    <section class="section">
       <div class="section-title-row"><h2 class="section-title">Selected frames</h2><span class="frame-count">50</span></div>
       <ul id="frames" class="frames">
         <li class="frame"><span>Homepage</span><span class="check">Ready</span></li>
@@ -118,7 +118,7 @@
       </ul>
     </section>
 
-    <section class="section">
+    <section class="section preflight-section">
       <h2 class="section-title">Pre-export check</h2>
       <button class="scan" type="button">Scan selection</button>
       <div class="warning"><strong>2 warnings in Checkout</strong>Placeholder text: CTA copy<br>Hidden layer: WIP notes</div>
