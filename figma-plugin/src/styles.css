@@ -186,6 +186,8 @@ body {
   padding: 16px;
   color: var(--color-thistle-900);
   background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .advanced-app { display: grid; gap: 10px; }

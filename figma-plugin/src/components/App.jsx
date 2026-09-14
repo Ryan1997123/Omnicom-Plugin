@@ -131,7 +131,6 @@ export default function App() {
         setScanResults(msg.error ? null : msg.results);
       }
       if (msg.type === "export-result") {
-        setExporting(false);
         if (msg.purpose === "master") {
           mergePdfFiles(msg.files)
             .then((bytes) => {
@@ -140,8 +139,10 @@ export default function App() {
               const name = `${sanitizeFilenamePart(currentMeta.fileName)}_Master${datePart}_v${sanitizeFilenamePart(currentMeta.version)}.pdf`;
               downloadFile(name, bytes);
             })
-            .catch((error) => setExportError(`Master PDF failed: ${error.message}`));
+            .catch((error) => setExportError(`Master PDF failed: ${error.message}`))
+            .finally(() => setExporting(false));
         } else {
+          setExporting(false);
           msg.files.forEach((f) => downloadFile(f.name, f.bytes));
         }
       }

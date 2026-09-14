@@ -25,7 +25,12 @@ function getDocMeta() {
   const raw = figma.root.getPluginData(DOC_KEY);
   if (!raw) return { fileName: "", version: "", includeDate: true };
 
-  const saved = JSON.parse(raw);
+  let saved;
+  try {
+    saved = JSON.parse(raw);
+  } catch (error) {
+    return { fileName: "", version: "", includeDate: true };
+  }
   return {
     fileName: saved.fileName || saved.client || "",
     version: saved.version || saved.round || "",
