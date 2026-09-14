@@ -246,7 +246,7 @@ export default function App() {
         <button className="advanced-secondary" type="submit">Save export details</button>
       </form>
 
-      <section className="advanced-panel advanced-section">
+      <section className="advanced-panel advanced-section preflight-section">
         <div className="advanced-section-heading">
           <span className="advanced-icon"><Layers3 size={15} /></span>
           <div><h2>Selected frames</h2><p>{selectionNames.length ? "Frames queued for export." : "Choose frames in Figma to begin."}</p></div>
