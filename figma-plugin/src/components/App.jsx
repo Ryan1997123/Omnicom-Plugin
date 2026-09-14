@@ -31,15 +31,40 @@ function IssueList({ title, items }) {
 }
 
 export default function App() {
-  const [meta, setMeta] = useState({ client: "", project: "", round: "" });
-  const [selectionNames, setSelectionNames] = useState([]);
-  const [scanResults, setScanResults] = useState(null);
+  const isPreview = new URLSearchParams(window.location.search).has("preview");
+  const [meta, setMeta] = useState(
+    isPreview
+      ? { client: "AcmeCo", project: "HomepageRedesign", round: "3" }
+      : { client: "", project: "", round: "" }
+  );
+  const [selectionNames, setSelectionNames] = useState(
+    isPreview ? ["Homepage", "Checkout"] : []
+  );
+  const [scanResults, setScanResults] = useState(
+    isPreview
+      ? [
+          {
+            name: "Homepage",
+            issues: { missingFonts: [], placeholderText: [], hiddenLayers: [] },
+          },
+          {
+            name: "Checkout",
+            issues: {
+              missingFonts: [],
+              placeholderText: ["CTA copy"],
+              hiddenLayers: ["WIP notes"],
+            },
+          },
+        ]
+      : null
+  );
   const [scanError, setScanError] = useState("");
   const [exportError, setExportError] = useState("");
   const [saved, setSaved] = useState(false);
   const [exporting, setExporting] = useState(false);
 
   useEffect(() => {
+    if (isPreview) return undefined;
     postToPlugin({ type: "init" });
 
     const handler = (event) => {
