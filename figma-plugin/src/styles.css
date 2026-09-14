@@ -289,8 +289,8 @@ body.owdia-dark-mode { color: var(--color-thistle-100); background: var(--color-
 .advanced-app.is-dark .advanced-section-heading p, .advanced-app.is-dark .advanced-toggle small, .advanced-app.is-dark .advanced-character-count, .advanced-app.is-dark .advanced-empty { color: var(--color-thistle-300); }
 .advanced-app.is-dark .advanced-form input { color: var(--color-thistle-50); border-color: var(--color-thistle-700); background: var(--color-thistle-800); }
 .advanced-app.is-dark .advanced-toggle, .advanced-app.is-dark .advanced-selection-list li { border-color: var(--color-thistle-700); color: var(--color-thistle-100); background: var(--color-thistle-800); }
-.advanced-app.is-dark .advanced-secondary { color: #fff; border-color: var(--color-thistle-500); background: var(--color-thistle-700); }
-.advanced-app.is-dark .advanced-secondary:not(:disabled):hover { border-color: var(--color-thistle-400); background: var(--color-thistle-600); }
+.advanced-app.is-dark .advanced-secondary { color: #fff; border-color: var(--color-thistle-600); background: #2a2137; }
+.advanced-app.is-dark .advanced-secondary:not(:disabled):hover { border-color: var(--color-thistle-500); background: #1e1828; }
 .advanced-app.is-dark .advanced-saved { color: #bde0ff; background: #023664; }
 .advanced-app.is-dark .advanced-theme-toggle { color: var(--color-thistle-100); border-color: var(--color-thistle-700); background: var(--color-thistle-800); }
 .advanced-app.is-dark .advanced-scan-frame.is-clean { background: var(--color-icy-blue-900); border-color: var(--color-icy-blue-700); }
