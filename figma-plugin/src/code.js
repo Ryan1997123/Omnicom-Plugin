@@ -161,7 +161,7 @@ figma.ui.onmessage = async (msg) => {
           return;
         }
       }
-      figma.ui.postMessage({ type: "export-result", files });
+      figma.ui.postMessage({ type: "export-result", files, purpose: msg.purpose || "individual" });
       break;
     }
 

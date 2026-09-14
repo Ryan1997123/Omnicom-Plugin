@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
+import { PDFDocument } from "pdf-lib";
 import {
   CheckCircle2,
   FileCheck2,
@@ -27,6 +28,25 @@ function downloadFile(name, byteArray) {
   a.click();
   a.remove();
   URL.revokeObjectURL(url);
+}
+
+async function mergePdfFiles(files) {
+  const merged = await PDFDocument.create();
+  for (const file of files) {
+    const source = await PDFDocument.load(new Uint8Array(file.bytes));
+    const pages = await merged.copyPages(source, source.getPageIndices());
+    pages.forEach((page) => merged.addPage(page));
+  }
+  return merged.save();
+}
+
+function sanitizeFilenamePart(value) {
+  return String(value || "").trim().replace(/[^a-z0-9]+/gi, "");
+}
+
+function todayStamp() {
+  const date = new Date();
+  return `${String(date.getMonth() + 1).padStart(2, "0")}${String(date.getDate()).padStart(2, "0")}${String(date.getFullYear()).slice(-2)}`;
 }
 
 function IssueList({ title, items }) {
@@ -75,6 +95,8 @@ export default function App() {
   const [exportError, setExportError] = useState("");
   const [saved, setSaved] = useState(false);
   const [exporting, setExporting] = useState(false);
+  const metaRef = useRef(meta);
+  metaRef.current = meta;
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
@@ -110,7 +132,18 @@ export default function App() {
       }
       if (msg.type === "export-result") {
         setExporting(false);
-        msg.files.forEach((f) => downloadFile(f.name, f.bytes));
+        if (msg.purpose === "master") {
+          mergePdfFiles(msg.files)
+            .then((bytes) => {
+              const currentMeta = metaRef.current;
+              const datePart = currentMeta.includeDate ? `_${todayStamp()}` : "";
+              const name = `${sanitizeFilenamePart(currentMeta.fileName)}_Master${datePart}_v${sanitizeFilenamePart(currentMeta.version)}.pdf`;
+              downloadFile(name, bytes);
+            })
+            .catch((error) => setExportError(`Master PDF failed: ${error.message}`));
+        } else {
+          msg.files.forEach((f) => downloadFile(f.name, f.bytes));
+        }
       }
       if (msg.type === "export-error") {
         setExporting(false);
@@ -139,7 +172,13 @@ export default function App() {
   const handleExport = useCallback(() => {
     setExportError("");
     setExporting(true);
-    postToPlugin({ type: "export" });
+    postToPlugin({ type: "export", purpose: "individual" });
+  }, []);
+
+  const handleMasterExport = useCallback(() => {
+    setExportError("");
+    setExporting(true);
+    postToPlugin({ type: "export", purpose: "master" });
   }, []);
 
   const handleCancel = useCallback(() => {
@@ -279,6 +318,9 @@ export default function App() {
             {exporting ? "Exporting…" : "Export as PDF"}
           </button>
         </div>
+        <button className="advanced-master" type="button" onClick={handleMasterExport} disabled={!metaComplete || selectionNames.length === 0 || exporting}>
+          Export master PDF
+        </button>
         <p className="advanced-filename">{filenamePreview}</p>
         {!metaComplete && <p className="muted">Fill in file name and version first.</p>}
         {exportError && <p className="error">{exportError}</p>}
