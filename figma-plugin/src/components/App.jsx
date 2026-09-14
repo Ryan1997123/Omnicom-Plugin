@@ -43,8 +43,8 @@ export default function App() {
   const isPreview = new URLSearchParams(window.location.search).has("preview");
   const [meta, setMeta] = useState(
     isPreview
-      ? { fileName: "AcmeCoHomepage", project: "HomepageRedesign", version: "3" }
-      : { fileName: "", project: "", version: "" }
+      ? { fileName: "AcmeCoHomepage", version: "3", includeDate: true }
+      : { fileName: "", version: "", includeDate: true }
   );
   const [selectionNames, setSelectionNames] = useState(
     isPreview ? ["Homepage", "Checkout"] : []
@@ -83,6 +83,12 @@ export default function App() {
       if (msg.type === "init") {
         setMeta(msg.meta);
         setSelectionNames(msg.selectionNames);
+      }
+      if (msg.type === "selection-changed") {
+        setSelectionNames(msg.selectionNames);
+        setScanResults(null);
+        setScanError("");
+        setExportError("");
       }
       if (msg.type === "meta-saved") {
         setSaved(true);
@@ -130,10 +136,10 @@ export default function App() {
     postToPlugin({ type: "close" });
   }, []);
 
-  const metaComplete = meta.fileName && meta.project && meta.version;
+  const metaComplete = meta.fileName && meta.version;
   const filenamePreview = metaComplete
-    ? `${meta.fileName}_${meta.project}_Frame_MMDDYY_v${meta.version}.pdf`
-    : "FileName_Project_Frame_MMDDYY_v#.pdf";
+    ? `${meta.fileName}_Frame${meta.includeDate ? "_MMDDYY" : ""}_v${meta.version}.pdf`
+    : `FileName_Frame${meta.includeDate ? "_MMDDYY" : ""}_v#.pdf`;
 
   return (
     <div className="app advanced-app">
@@ -144,7 +150,7 @@ export default function App() {
           <p>Review once. Ship with confidence.</p>
         </div>
         <span className={selectionNames.length ? "advanced-status is-ready" : "advanced-status"}>
-          {selectionNames.length ? "Ready" : "Waiting"}
+          {selectionNames.length ? <><CheckCircle2 size={12} /> Ready</> : "Waiting"}
         </span>
       </header>
 
@@ -162,16 +168,23 @@ export default function App() {
             placeholder="AcmeCoHomepage"
           />
         </label>
-        <div className="advanced-field-row">
-          <label>
-            Project
-            <input value={meta.project} onChange={(e) => setMeta({ ...meta, project: e.target.value })} placeholder="HomepageRedesign" />
-          </label>
-          <label className="advanced-version-field">
-            Version
-            <input value={meta.version} onChange={(e) => setMeta({ ...meta, version: e.target.value.replace(/^v/i, "") })} placeholder="3" />
-          </label>
-        </div>
+        <label className="advanced-version-field">
+          Version
+          <input value={meta.version} onChange={(e) => setMeta({ ...meta, version: e.target.value.replace(/^v/i, "") })} placeholder="3" />
+        </label>
+        <label className="advanced-toggle">
+          <span>
+            <strong>Include date</strong>
+            <small>Add MMDDYY to each filename.</small>
+          </span>
+          <input
+            className="advanced-toggle-input"
+            type="checkbox"
+            checked={meta.includeDate}
+            onChange={(e) => setMeta({ ...meta, includeDate: e.target.checked })}
+          />
+          <span className="advanced-toggle-track" aria-hidden="true" />
+        </label>
         <button className="advanced-secondary" type="submit">Save export details</button>
       </form>
 
@@ -242,7 +255,7 @@ export default function App() {
           </button>
         </div>
         <p className="advanced-filename">{filenamePreview}</p>
-        {!metaComplete && <p className="muted">Fill in file name/project/version first.</p>}
+        {!metaComplete && <p className="muted">Fill in file name and version first.</p>}
         {exportError && <p className="error">{exportError}</p>}
       </section>
     </div>

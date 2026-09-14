@@ -23,13 +23,13 @@ function isLikelyPlaceholder(text) {
 function getDocMeta() {
   // Stored on the document node itself, so it travels with the file (not per-user clientStorage).
   const raw = figma.root.getPluginData(DOC_KEY);
-  if (!raw) return { fileName: "", project: "", version: "" };
+  if (!raw) return { fileName: "", version: "", includeDate: true };
 
   const saved = JSON.parse(raw);
   return {
     fileName: saved.fileName || saved.client || "",
-    project: saved.project || "",
     version: saved.version || saved.round || "",
+    includeDate: saved.includeDate !== false,
   };
 }
 
@@ -51,10 +51,18 @@ function sanitize(part) {
 }
 
 function buildFilename(meta, frameName) {
-  const { fileName, project, version } = meta;
-  return `${sanitize(fileName)}_${sanitize(project)}_${sanitize(frameName)}_${todayStamp()}_v${sanitize(
-    version
-  )}.pdf`;
+  const { fileName, version, includeDate } = meta;
+  const parts = [sanitize(fileName), sanitize(frameName)];
+  if (includeDate) parts.push(todayStamp());
+  parts.push(`v${sanitize(version)}`);
+  return `${parts.join("_")}.pdf`;
+}
+
+function postSelection() {
+  figma.ui.postMessage({
+    type: "selection-changed",
+    selectionNames: figma.currentPage.selection.map((node) => node.name),
+  });
 }
 
 function collectDescendants(node, out) {
@@ -166,3 +174,5 @@ figma.ui.onmessage = async (msg) => {
       break;
   }
 };
+
+figma.on("selectionchange", postSelection);

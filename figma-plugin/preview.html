@@ -31,16 +31,25 @@
       box-shadow: 0 14px 35px rgb(56 33 69 / 18%);
     }
     .eyebrow { display: flex; justify-content: space-between; margin: 0 0 6px; color: #cc004e; font-size: 10px; font-weight: 800; letter-spacing: .08em; }
-    .status { padding: 4px 7px; border-radius: 99px; color: #025197; background: #e6f3ff; font-size: 10px; letter-spacing: 0; }
+    .status { padding: 4px 7px; border-radius: 99px; color: #1b7a52; background: #e9f7ef; font-size: 10px; letter-spacing: 0; }
     h1 { margin: 0 0 4px; color: #382145; font-size: 22px; line-height: 1.1; letter-spacing: 0; }
     .subtitle { margin: 0 0 20px; color: #70428a; }
-    .metadata { display: grid; grid-template-columns: 1fr 1fr 72px; gap: 8px; }
+    .metadata { display: grid; grid-template-columns: minmax(0, 1fr) 72px; gap: 8px; }
     label { display: grid; gap: 5px; color: #543267; font-size: 11px; font-weight: 600; }
     input {
       width: 100%; height: 34px; padding: 0 9px; border: 1px solid #ba98cd;
       border-radius: 5px; color: #1c1122; background: #fff; font: inherit;
     }
     input:focus { outline: 2px solid #9bcffd; border-color: #0488fb; }
+    .date-toggle { display: flex; align-items: center; justify-content: space-between; margin-top: 9px; padding: 8px 10px; border: 1px solid #d1bade; border-radius: 6px; cursor: pointer; }
+    .date-toggle strong, .date-toggle small { display: block; }
+    .date-toggle strong { color: #382145; font-size: 11px; }
+    .date-toggle small { margin-top: 2px; color: #70428a; font-size: 10px; font-weight: 400; }
+    .date-toggle input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+    .toggle-track { position: relative; width: 31px; height: 18px; border-radius: 99px; background: #ba98cd; }
+    .toggle-track::after { position: absolute; top: 3px; left: 3px; width: 12px; height: 12px; border-radius: 50%; background: #fff; content: ""; transition: transform .15s ease; }
+    .date-toggle input:checked + .toggle-track { background: #ff0062; }
+    .date-toggle input:checked + .toggle-track::after { transform: translateX(13px); }
     button {
       height: 36px; padding: 0 12px; border: 0; border-radius: 5px;
       font: inherit; font-weight: 700; cursor: pointer;
@@ -68,15 +77,15 @@
 </head>
 <body>
   <main class="shell">
-    <p class="eyebrow">OWDIA / DELIVERY TOOL <span class="status">READY</span></p>
+    <p class="eyebrow">OWDIA / DELIVERY TOOL <span class="status">&#10003; READY</span></p>
     <h1>Export Assistant</h1>
     <p class="subtitle">Prepare your design for Workfront.</p>
 
     <section class="metadata">
       <label>File name<input value="AcmeCoHomepage"></label>
-      <label>Project<input value="HomepageRedesign"></label>
       <label>Version<input value="3"></label>
     </section>
+    <label class="date-toggle"><span><strong>Include date</strong><small>Add MMDDYY to each filename.</small></span><input id="include-date" type="checkbox" checked onchange="document.getElementById('filename').textContent = this.checked ? 'AcmeCoHomepage_Homepage_091426_v3.pdf' : 'AcmeCoHomepage_Homepage_v3.pdf'"><span class="toggle-track"></span></label>
     <button class="save" type="button" onclick="this.nextElementSibling.hidden = false">Save export details</button><span class="saved" hidden>Saved</span>
     <p class="subtitle" style="margin-top: 8px; font-size: 11px;">Saved to this Figma file for future exports.</p>
 
@@ -97,7 +106,7 @@
     <section class="export-area">
       <p class="export-meta"><span>PDF HANDOFF</span><strong>2 FILES READY</strong></p>
       <div class="export-actions"><button class="cancel" type="button">Cancel</button><button class="export" type="button">Export as PDF</button></div>
-      <p class="filename">AcmeCoHomepage_HomepageRedesign_Homepage_091426_v3.pdf</p>
+      <p id="filename" class="filename">AcmeCoHomepage_Homepage_091426_v3.pdf</p>
     </section>
   </main>
 </body>
