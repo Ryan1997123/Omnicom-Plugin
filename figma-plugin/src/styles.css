@@ -231,8 +231,9 @@ body {
 .advanced-toggle-input:checked + .advanced-toggle-track::after { transform: translateX(13px); }
 .advanced-toggle-input:focus-visible + .advanced-toggle-track { outline: 2px solid var(--color-icy-blue-400); outline-offset: 2px; }
 .advanced-secondary { width: 100%; color: var(--color-thistle-800); border-color: var(--color-thistle-200); background: var(--color-thistle-100); }
-.advanced-save-row { display: flex; align-items: center; gap: 8px; }
-.advanced-save-row .advanced-secondary { flex: 1; width: auto; margin: 0; }
+.advanced-save-stack { display: grid; gap: 6px; }
+.advanced-save-stack .advanced-secondary { width: 100%; margin: 0; }
+.advanced-saved { justify-self: flex-end; display: inline-flex; align-items: center; justify-content: center; padding: 5px 8px; border-radius: 999px; min-height: 22px; color: #dff6ff; background: #0b3d66; border: 1px solid rgba(132, 196, 255, 0.55); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04); font-size: 10px; font-weight: 800; line-height: 1; }
 .advanced-section .advanced-secondary { margin-top: 3px; }
 .preflight-section > .advanced-secondary { margin-top: 0; }
 .advanced-secondary:not(:disabled):hover { background: var(--color-thistle-200); }

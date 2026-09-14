@@ -275,7 +275,7 @@ export default function App() {
           />
           <span className="advanced-toggle-track" aria-hidden="true" />
         </label>
-        <div className="advanced-save-row">
+        <div className="advanced-save-stack">
           <button className="advanced-secondary" type="submit">Save export details</button>
           {saved && <span className="advanced-saved">Saved</span>}
         </div>
