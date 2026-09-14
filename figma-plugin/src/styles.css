@@ -231,6 +231,8 @@ body {
 .advanced-toggle-input:checked + .advanced-toggle-track::after { transform: translateX(13px); }
 .advanced-toggle-input:focus-visible + .advanced-toggle-track { outline: 2px solid var(--color-icy-blue-400); outline-offset: 2px; }
 .advanced-secondary { width: 100%; color: var(--color-thistle-800); border-color: var(--color-thistle-200); background: var(--color-thistle-100); }
+.advanced-save-row { display: flex; align-items: center; gap: 8px; }
+.advanced-save-row .advanced-secondary { flex: 1; width: auto; margin: 0; }
 .advanced-section .advanced-secondary { margin-top: 3px; }
 .preflight-section > .advanced-secondary { margin-top: 0; }
 .advanced-secondary:not(:disabled):hover { background: var(--color-thistle-200); }

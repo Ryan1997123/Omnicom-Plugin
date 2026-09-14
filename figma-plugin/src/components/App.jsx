@@ -275,7 +275,10 @@ export default function App() {
           />
           <span className="advanced-toggle-track" aria-hidden="true" />
         </label>
-        <button className="advanced-secondary" type="submit">Save export details</button>
+        <div className="advanced-save-row">
+          <button className="advanced-secondary" type="submit">Save export details</button>
+          {saved && <span className="advanced-saved">Saved</span>}
+        </div>
       </form>
 
       <section className="advanced-panel advanced-section review-notes-section">
