@@ -59,9 +59,16 @@
       height: 36px; padding: 0 12px; border: 0; border-radius: 5px;
       font: inherit; font-weight: 700; cursor: pointer;
     }
-    .save-row { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
-    .save { flex: 1; margin-top: 0; color: #fff; background: #382145; }
-    .saved { display: inline-flex; align-items: center; padding: 5px 8px; border-radius: 999px; color: #0b3d66; background: #dff6ff; border: 1px solid rgba(132, 196, 255, 0.6); font-size: 10px; font-weight: 800; }
+    .save-row { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; }
+    .save { width: 100%; margin-top: 0; color: #fff; background: #382145; }
+    .saved {
+      color: #cfe6ff;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-align: right;
+      opacity: 0.98;
+    }
     .section { margin-top: 22px; padding-top: 16px; border-top: 1px solid #e8ddee; }
     .section-title-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 9px; }
     .preflight-section .section-title-row { margin-bottom: 9px; padding-bottom: 0; }
@@ -94,6 +101,7 @@
     body.dark-mode .date-toggle small { color: #ba98cd; }
     body.dark-mode .save, body.dark-mode .scan { color: #fff; border: 1px solid #8b53ac; background: #543267; }
     body.dark-mode .save:hover, body.dark-mode .scan:hover { border-color: #a375bd; background: #70428a; }
+    body.dark-mode .saved { color: #dff6ff; }
     body.dark-mode .theme-toggle { color: #f3eef7; border-color: #543267; background: #382145; }
     @media (max-width: 400px) { .shell { width: calc(100% - 24px); margin: 12px auto; } }
   </style>
