@@ -121,7 +121,7 @@
       <label>File name<input id="file-name" value="AcmeCoHomepage" maxlength="40" oninput="document.getElementById('character-count').textContent = this.value.length + ' / 40'"><span id="character-count" class="character-count">14 / 40</span></label>
       <label>Version<input value="3"></label>
     </section>
-    <label class="date-toggle"><span><strong>Include date</strong><small>Add MMDDYY to each filename.</small></span><input id="include-date" type="checkbox" checked onchange="document.getElementById('filename').textContent = this.checked ? 'AcmeCoHomepage_Master_091426_v3.pdf' : 'AcmeCoHomepage_Master_v3.pdf'"><span class="toggle-track"></span></label>
+    <label class="date-toggle"><span><strong>Include date</strong><small>Add today's date to each filename.</small></span><input id="include-date" type="checkbox" checked onchange="updateFilename()"><span class="toggle-track"></span></label>
     <div class="save-row">
       <button class="save" type="button" onclick="document.querySelector('.saved').hidden = false">Save export details</button>
       <span class="saved" hidden>Saved</span>
@@ -146,10 +146,25 @@
     <section class="export-area">
       <p class="export-meta"><span>PDF HANDOFF</span><strong>1 MASTER PDF READY</strong></p>
       <div class="export-actions"><button class="cancel" type="button">Cancel</button><button class="export" type="button">Export master PDF</button></div>
-      <p id="filename" class="filename">AcmeCoHomepage_Master_091426_v3.pdf</p>
+      <p id="filename" class="filename">AcmeCoHomepage_v3.pdf</p>
     </section>
   </main>
   <script>
+    function todayStamp() {
+      const date = new Date();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      const year = String(date.getFullYear()).slice(-2);
+      return `${month}${day}${year}`;
+    }
+
+    function updateFilename() {
+      const includeDate = document.getElementById("include-date").checked;
+      document.getElementById("filename").textContent = includeDate
+        ? `AcmeCoHomepage_${todayStamp()}_v3.pdf`
+        : "AcmeCoHomepage_v3.pdf";
+    }
+
     const frames = document.getElementById("frames");
     for (let index = 3; index <= 50; index += 1) {
       const item = document.createElement("li");
@@ -157,6 +172,7 @@
       item.innerHTML = `<span>Screen ${String(index).padStart(2, "0")}</span><span class="check">Ready</span>`;
       frames.appendChild(item);
     }
+    updateFilename();
   </script>
 </body>
 </html>
