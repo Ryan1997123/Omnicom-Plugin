@@ -181,9 +181,10 @@ export default function App() {
   }, []);
 
   const metaComplete = meta.fileName && meta.version;
+  const dateStamp = todayStamp();
   const filenamePreview = metaComplete
-    ? `${meta.fileName}${meta.includeDate ? "_MMDDYY" : ""}_v${meta.version}.pdf`
-    : `FileName${meta.includeDate ? "_MMDDYY" : ""}_v#.pdf`;
+    ? `${meta.fileName}${meta.includeDate ? `_${dateStamp}` : ""}_v${meta.version}.pdf`
+    : `FileName${meta.includeDate ? `_${dateStamp}` : ""}_v#.pdf`;
 
   return (
     <div className={darkMode ? "app advanced-app is-dark" : "app advanced-app"}>
@@ -234,7 +235,7 @@ export default function App() {
         <label className="advanced-toggle">
           <span>
             <strong>Include date</strong>
-            <small>Add MMDDYY to each filename.</small>
+            <small>Add today&apos;s date to each filename.</small>
           </span>
           <input
             className="advanced-toggle-input"
