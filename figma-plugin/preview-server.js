@@ -18,7 +18,13 @@ const contentTypes = {
 
 const server = http.createServer((request, response) => {
   const requestPath = decodeURIComponent(request.url.split("?")[0]);
-  const relativePath = requestPath === "/" ? "index.html" : requestPath.slice(1);
+  if (requestPath === "/") {
+    response.writeHead(302, { Location: "/ui.html?preview" });
+    response.end();
+    return;
+  }
+
+  const relativePath = requestPath.slice(1);
   const filePath = path.resolve(root, relativePath);
 
   if (!filePath.startsWith(`${root}${path.sep}`)) {
