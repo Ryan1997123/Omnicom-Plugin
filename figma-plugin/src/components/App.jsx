@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 
 const FILE_NAME_LIMIT = 40;
+const APP_VERSION = "1.1";
 
 function postToPlugin(message) {
   parent.postMessage({ pluginMessage: message }, "*");
@@ -279,7 +280,7 @@ export default function App() {
     <div className={darkMode ? "app advanced-app is-dark" : "app advanced-app"}>
       <header className="advanced-header">
         <div>
-          <p className="advanced-eyebrow"><Sparkles size={11} /> OWDIA / DELIVERY TOOL</p>
+          <p className="advanced-eyebrow"><Sparkles size={11} /> OWDIA / DELIVERY TOOL / v{APP_VERSION}</p>
           <h1>Export Assistant</h1>
           <p>Review once. Ship with confidence.</p>
         </div>
