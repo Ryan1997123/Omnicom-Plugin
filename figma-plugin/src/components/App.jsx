@@ -4,11 +4,14 @@ import {
   CheckCircle2,
   FileCheck2,
   FileText,
+  EyeOff,
   Layers3,
   MoonStar,
+  RotateCcw,
   ScanSearch,
   Sparkles,
   Sun,
+  Trash2,
   TriangleAlert,
 } from "lucide-react";
 
@@ -63,6 +66,46 @@ function IssueList({ title, items }) {
   );
 }
 
+function HiddenLayerList({ activeItems, ignoredItems, removingIds, onRemove, onIgnore, onRestore }) {
+  if (activeItems.length === 0 && ignoredItems.length === 0) return null;
+
+  return (
+    <div className="issue-group hidden-layer-group">
+      <strong>Hidden layers</strong>
+      <p className="hidden-layer-guidance">Remove unused hidden content to reduce handoff confusion, or ignore layers intentionally kept for working variants.</p>
+      <ul>
+        {activeItems.map((item) => (
+          <li key={item.id}>
+            <span>{item.name}</span>
+            <span className="hidden-layer-actions">
+              <button type="button" onClick={() => onIgnore(item.id)} title={`Ignore ${item.name}`}>
+                <EyeOff size={12} /> Ignore
+              </button>
+              <button
+                className="is-destructive"
+                type="button"
+                onClick={() => onRemove(item)}
+                disabled={removingIds.has(item.id)}
+                title={`Remove ${item.name}`}
+              >
+                <Trash2 size={12} /> {removingIds.has(item.id) ? "Removing" : "Remove"}
+              </button>
+            </span>
+          </li>
+        ))}
+        {ignoredItems.map((item) => (
+          <li className="is-ignored" key={item.id}>
+            <span>{item.name} <small>Ignored</small></span>
+            <button type="button" onClick={() => onRestore(item.id)} title={`Restore warning for ${item.name}`}>
+              <RotateCcw size={12} /> Restore
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export default function App() {
   const isPreview = new URLSearchParams(window.location.search).has("preview");
   const [meta, setMeta] = useState(
@@ -85,7 +128,7 @@ export default function App() {
             issues: {
               missingFonts: [],
               placeholderText: ["CTA copy"],
-              hiddenLayers: ["WIP notes"],
+              hiddenLayers: [{ id: "preview-hidden-1", name: "WIP notes" }],
             },
           },
         ]
@@ -95,6 +138,8 @@ export default function App() {
   const [exportError, setExportError] = useState("");
   const [saved, setSaved] = useState(false);
   const [exporting, setExporting] = useState(false);
+  const [ignoredHiddenLayerIds, setIgnoredHiddenLayerIds] = useState(() => new Set());
+  const [removingHiddenLayerIds, setRemovingHiddenLayerIds] = useState(() => new Set());
   const metaRef = useRef(meta);
   metaRef.current = meta;
   const [darkMode, setDarkMode] = useState(false);
@@ -118,8 +163,6 @@ export default function App() {
       }
       if (msg.type === "selection-changed") {
         setSelectionNames(msg.selectionNames);
-        setScanResults(null);
-        setScanError("");
         setExportError("");
       }
       if (msg.type === "meta-saved") {
@@ -129,6 +172,33 @@ export default function App() {
       if (msg.type === "scan-result") {
         setScanError(msg.error || "");
         setScanResults(msg.error ? null : msg.results);
+      }
+      if (msg.type === "hidden-layer-removed") {
+        setRemovingHiddenLayerIds((current) => {
+          const next = new Set(current);
+          next.delete(msg.nodeId);
+          return next;
+        });
+        setIgnoredHiddenLayerIds((current) => {
+          const next = new Set(current);
+          next.delete(msg.nodeId);
+          return next;
+        });
+        setScanResults((current) => current && current.map((result) => ({
+          ...result,
+          issues: {
+            ...result.issues,
+            hiddenLayers: result.issues.hiddenLayers.filter((layer) => layer.id !== msg.nodeId),
+          },
+        })));
+      }
+      if (msg.type === "hidden-layer-remove-error") {
+        setRemovingHiddenLayerIds((current) => {
+          const next = new Set(current);
+          next.delete(msg.nodeId);
+          return next;
+        });
+        setScanError(msg.error);
       }
       if (msg.type === "export-result") {
         if (msg.purpose === "master") {
@@ -168,6 +238,25 @@ export default function App() {
     setScanError("");
     setScanResults(null);
     postToPlugin({ type: "scan" });
+  }, []);
+
+  const handleRemoveHiddenLayer = useCallback((layer) => {
+    if (!window.confirm(`Remove the hidden layer “${layer.name}”? You can undo this change in Figma.`)) return;
+    setScanError("");
+    setRemovingHiddenLayerIds((current) => new Set(current).add(layer.id));
+    postToPlugin({ type: "remove-hidden-layer", nodeId: layer.id });
+  }, []);
+
+  const handleIgnoreHiddenLayer = useCallback((nodeId) => {
+    setIgnoredHiddenLayerIds((current) => new Set(current).add(nodeId));
+  }, []);
+
+  const handleRestoreHiddenLayer = useCallback((nodeId) => {
+    setIgnoredHiddenLayerIds((current) => {
+      const next = new Set(current);
+      next.delete(nodeId);
+      return next;
+    });
   }, []);
 
   const handleMasterExport = useCallback(() => {
@@ -286,22 +375,26 @@ export default function App() {
           <div className="scan-results">
             {scanResults.map((r, i) => {
               const { missingFonts, placeholderText, hiddenLayers } = r.issues;
+              const activeHiddenLayers = hiddenLayers.filter((layer) => !ignoredHiddenLayerIds.has(layer.id));
+              const ignoredHiddenLayers = hiddenLayers.filter((layer) => ignoredHiddenLayerIds.has(layer.id));
               const clean =
                 missingFonts.length === 0 &&
                 placeholderText.length === 0 &&
-                hiddenLayers.length === 0;
+                activeHiddenLayers.length === 0;
               return (
                 <details key={i} className={clean ? "advanced-scan-frame is-clean" : "advanced-scan-frame has-warning"}>
                   <summary className="advanced-scan-frame-heading"><strong>{r.name}</strong>{clean ? <CheckCircle2 size={15} aria-label="No issues found" /> : <TriangleAlert size={15} aria-label="Warnings found" />}</summary>
-                  {clean ? (
-                    <p className="ok">No issues found</p>
-                  ) : (
-                    <>
-                      <IssueList title="Missing fonts" items={missingFonts} />
-                      <IssueList title="Placeholder text" items={placeholderText} />
-                      <IssueList title="Hidden layers" items={hiddenLayers} />
-                    </>
-                  )}
+                  {clean && <p className="ok">{ignoredHiddenLayers.length ? "No active issues" : "No issues found"}</p>}
+                  <IssueList title="Missing fonts" items={missingFonts} />
+                  <IssueList title="Placeholder text" items={placeholderText} />
+                  <HiddenLayerList
+                    activeItems={activeHiddenLayers}
+                    ignoredItems={ignoredHiddenLayers}
+                    removingIds={removingHiddenLayerIds}
+                    onRemove={handleRemoveHiddenLayer}
+                    onIgnore={handleIgnoreHiddenLayer}
+                    onRestore={handleRestoreHiddenLayer}
+                  />
                 </details>
               );
             })}

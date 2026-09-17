@@ -119,7 +119,7 @@ async function scanNode(node) {
 
   for (const n of all) {
     if (n.id !== node.id && n.visible === false) {
-      issues.hiddenLayers.push(n.name);
+      issues.hiddenLayers.push({ id: n.id, name: n.name });
     }
     if (n.type === "TEXT") {
       if (await hasMissingFont(n)) issues.missingFonts.push(n.name);
@@ -159,6 +159,24 @@ figma.ui.onmessage = async (msg) => {
         results.push({ name: node.name, issues: await scanNode(node) });
       }
       figma.ui.postMessage({ type: "scan-result", results });
+      break;
+    }
+
+    case "remove-hidden-layer": {
+      try {
+        const node = await figma.getNodeByIdAsync(msg.nodeId);
+        if (!node || !("visible" in node) || node.visible !== false) {
+          throw new Error("This layer is no longer hidden. Run the scan again.");
+        }
+        node.remove();
+        figma.ui.postMessage({ type: "hidden-layer-removed", nodeId: msg.nodeId });
+      } catch (error) {
+        figma.ui.postMessage({
+          type: "hidden-layer-remove-error",
+          nodeId: msg.nodeId,
+          error: error.message || "Could not remove the hidden layer.",
+        });
+      }
       break;
     }
 
