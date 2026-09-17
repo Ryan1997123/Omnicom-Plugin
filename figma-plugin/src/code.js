@@ -63,10 +63,26 @@ function buildFilename(meta, frameName) {
   return `${parts.join("_")}.pdf`;
 }
 
+function getOrderedSelection() {
+  const selection = [...figma.currentPage.selection];
+
+  return selection.sort((a, b) => {
+    const aBounds = a.absoluteBoundingBox;
+    const bBounds = b.absoluteBoundingBox;
+    if (!aBounds || !bBounds) return 0;
+
+    const sameRow =
+      aBounds.y < bBounds.y + bBounds.height &&
+      bBounds.y < aBounds.y + aBounds.height;
+
+    return sameRow ? aBounds.x - bBounds.x : aBounds.y - bBounds.y;
+  });
+}
+
 function postSelection() {
   figma.ui.postMessage({
     type: "selection-changed",
-    selectionNames: figma.currentPage.selection.map((node) => node.name),
+    selectionNames: getOrderedSelection().map((node) => node.name),
   });
 }
 
@@ -117,7 +133,7 @@ figma.ui.onmessage = async (msg) => {
   switch (msg.type) {
     case "init": {
       const meta = getDocMeta();
-      const selection = figma.currentPage.selection;
+      const selection = getOrderedSelection();
       figma.ui.postMessage({
         type: "init",
         meta,
@@ -133,7 +149,7 @@ figma.ui.onmessage = async (msg) => {
     }
 
     case "scan": {
-      const selection = figma.currentPage.selection;
+      const selection = getOrderedSelection();
       if (selection.length === 0) {
         figma.ui.postMessage({ type: "scan-result", error: "Nothing selected." });
         break;
@@ -147,7 +163,7 @@ figma.ui.onmessage = async (msg) => {
     }
 
     case "export": {
-      const selection = figma.currentPage.selection;
+      const selection = getOrderedSelection();
       if (selection.length === 0) {
         figma.ui.postMessage({ type: "export-error", error: "Nothing selected." });
         break;

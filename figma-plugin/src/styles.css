@@ -166,13 +166,25 @@ ul {
 }
 
 /* Advanced plugin surface */
+html {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  background: #e5e5e5;
+}
+
 body {
+  width: 420px;
+  min-height: 800px;
+  margin: 24px 0;
   padding: 16px;
   color: var(--color-thistle-900);
   background: #ffffff;
+  border: 1px solid var(--color-thistle-200);
   border-radius: 12px;
+  box-shadow: 0 20px 45px rgba(28, 17, 34, 0.18);
   overflow-x: hidden;
-  overflow-y: auto;
 }
 
 .advanced-app { display: grid; gap: 10px; }
